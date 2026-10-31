@@ -1,16 +1,9 @@
 import type { Metadata } from "next";
 import type { ReactNode } from "react";
-import { Inter } from "next/font/google";
 import "./globals.css";
 import "./premium.css";
 import "./dashboard-premium.css";
 import { SiteHeader, SiteFooter } from "@/components/site";
-
-const inter = Inter({
-  subsets: ["latin"],
-  variable: "--font-inter",
-  display: "swap",
-});
 
 export const metadata: Metadata = {
   title: "Missed Booking Recovery — WordbitX",
@@ -22,7 +15,7 @@ const themeScript = `(function(){try{var m=localStorage.getItem('wbx-theme')||'d
 
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
-    <html lang="en" data-theme="dark" suppressHydrationWarning className={inter.variable}>
+    <html lang="en" data-theme="dark" suppressHydrationWarning>
       <head>
         <script dangerouslySetInnerHTML={{ __html: themeScript }} />
       </head>

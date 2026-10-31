@@ -1,5 +1,6 @@
 import { db } from "@/db";
 import { retailProducts, activityEvents } from "@/db/schema";
+import { ensureShelfForSalon } from "@/db/seed";
 import { and, asc, eq } from "drizzle-orm";
 import { adminGate, clean, getSessionSalon } from "@/lib/tenant";
 
@@ -10,7 +11,7 @@ const CATEGORIES = ["Haircare", "Skin", "Nails", "Bridal", "Fragrance"];
 /** Public catalog — sirf active products. Admin list `?all=1` se. */
 export async function GET(req: Request) {
   const salon = await getSessionSalon();
-  await ensureShelf(salon.id, salon.slug);
+  await ensureShelfForSalon(salon.id, salon.slug);
   const all = new URL(req.url).searchParams.get("all") === "1";
   const rows = await db
     .select()
@@ -88,28 +89,13 @@ export async function DELETE(req: Request) {
   return Response.json({ deleted: id });
 }
 
-/** Sirf https image URL — warna null (emoji fallback) */
+/** Local (/images/...) ya https image URL — warna null (emoji fallback) */
 function safeImage(v: unknown): string | null {
   const url = clean(v, 500);
-  return /^https:\/\/[^\s]+$/i.test(url) ? url : null;
+  return /^(https:\/\/[^\s]+|\/[a-zA-Z0-9._/-]+)$/i.test(url) ? url : null;
 }
 
 function clamp(v: unknown, min: number, max: number, dflt: number) {
   const n = Math.round(Number(v));
   return Number.isFinite(n) ? Math.max(min, Math.min(max, n)) : dflt;
-}
-
-/** Pehli dafa shelf khali ho to Glow Salon ka starter catalogue. Admin baad mein edit/delete kar sakta hai. */
-async function ensureShelf(salonId: string, slug: string) {
-  if (slug !== "glow-demo") return;
-  const existing = await db.select({ id: retailProducts.id }).from(retailProducts).where(eq(retailProducts.salonId, salonId)).limit(1);
-  if (existing.length > 0) return;
-  await db.insert(retailProducts).values([
-    { salonId, imageUrl: "https://images.pexels.com/photos/14656188/pexels-photo-14656188.jpeg?auto=compress&cs=tinysrgb&w=800", name: "Keratin Repair Serum", description: "Color ke baad frizz kam kare — 100ml.", pricePkr: 2800, category: "Haircare", stock: 14, emoji: "💧", sortOrder: 1 },
-    { salonId, imageUrl: "https://images.pexels.com/photos/19644201/pexels-photo-19644201.jpeg?auto=compress&cs=tinysrgb&w=800", name: "Silk Hair Mask", description: "Weekly deep mask, dry ends ke liye.", pricePkr: 2200, category: "Haircare", stock: 9, emoji: "🎀", sortOrder: 2 },
-    { salonId, imageUrl: "https://images.pexels.com/photos/33525723/pexels-photo-33525723.jpeg?auto=compress&cs=tinysrgb&w=800", name: "After-Color Shampoo", description: "Color lock shampoo, sulfate-free.", pricePkr: 1650, category: "Haircare", stock: 18, emoji: "🧴", sortOrder: 3 },
-    { salonId, imageUrl: "https://images.pexels.com/photos/6223482/pexels-photo-6223482.jpeg?auto=compress&cs=tinysrgb&w=800", name: "Hydra Glow Facial Kit", description: "Ghar par 3-step glow — salon facial ke baad.", pricePkr: 3400, category: "Skin", stock: 7, emoji: "✨", sortOrder: 4 },
-    { salonId, imageUrl: "https://images.pexels.com/photos/24653480/pexels-photo-24653480.jpeg?auto=compress&cs=tinysrgb&w=800", name: "Nail Strengthener", description: "Gel ke baad weak nails ke liye.", pricePkr: 890, category: "Nails", stock: 22, emoji: "💅", sortOrder: 5 },
-    { salonId, imageUrl: "https://images.pexels.com/photos/8871291/pexels-photo-8871291.jpeg?auto=compress&cs=tinysrgb&w=800", name: "Bridal Mehndi Cone Set", description: "4 cones + aftercare oil. Shaadi season.", pricePkr: 1200, category: "Bridal", stock: 11, emoji: "🌿", sortOrder: 6 },
-  ]);
 }

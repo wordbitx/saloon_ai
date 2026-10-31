@@ -2,7 +2,7 @@
 
 import { useCallback, useEffect, useState } from "react";
 import { Plus, Pencil, Trash2, ShoppingBag } from "lucide-react";
-import { Panel, Btn, Modal, Field, Empty, Tag, useToast } from "@/components/dash/bits";
+import { Btn, Modal, Field, Empty, useToast } from "@/components/dash/bits";
 import { useAdmin } from "@/components/dash/admin";
 import { Switch, cn } from "@/components/ui";
 import { pkr } from "@/lib/utils";
@@ -22,6 +22,23 @@ interface Product {
 
 const CATS = ["Haircare", "Skin", "Nails", "Bridal", "Fragrance"];
 const empty = { id: "", name: "", description: "", pricePkr: 1500, category: "Haircare", stock: 10, emoji: "✨", imageUrl: "", active: true, sortOrder: 10 };
+
+function ProductThumb({ imageUrl, name, emoji }: { imageUrl?: string | null; name: string; emoji: string }) {
+  const [broken, setBroken] = useState(false);
+  if (!imageUrl || broken) {
+    return <div className="grid h-40 place-items-center border-b border-line bg-brand-soft text-4xl">{emoji}</div>;
+  }
+  return (
+    // eslint-disable-next-line @next/next/no-img-element
+    <img
+      src={imageUrl}
+      alt={name}
+      loading="lazy"
+      onError={() => setBroken(true)}
+      className="h-40 w-full border-b border-line object-cover"
+    />
+  );
+}
 
 export default function ProductsAdminPage() {
   const [rows, setRows] = useState<Product[]>([]);
@@ -83,22 +100,19 @@ export default function ProductsAdminPage() {
         {loading && Array.from({ length: 3 }).map((_, i) => <div key={i} className="card h-72 animate-pulse" />)}
         {rows.map((p) => (
           <div key={p.id} className={cn("card overflow-hidden", !p.active && "opacity-60")}>
-            {p.imageUrl
-              // eslint-disable-next-line @next/next/no-img-element
-              ? <img src={p.imageUrl} alt={p.name} className="h-40 w-full border-b border-line object-cover" />
-              : <div className="grid h-40 place-items-center border-b border-line bg-brand-soft text-4xl">{p.emoji}</div>}
+            <ProductThumb key={p.imageUrl ?? "no-img"} imageUrl={p.imageUrl} name={p.name} emoji={p.emoji} />
             <div className="p-4">
-            <div className="flex items-start justify-between gap-2">
-              <p className="text-sm font-extrabold">{p.emoji} {p.name}</p>
-              <Switch checked={p.active} onChange={(v) => void toggle(p, v)} label={`${p.name} active`} />
-            </div>
-            <p className="mt-1 text-[11px] text-mut">{p.category} · stock {p.stock}</p>
-            <p className="mt-2 text-xl font-extrabold text-accent">{pkr(p.pricePkr)}</p>
-            <p className="mt-1 line-clamp-2 text-[12px] text-mut">{p.description}</p>
-            <div className="mt-4 flex gap-2 border-t border-line pt-3">
-              <Btn variant="ghost" className="flex-1" onClick={() => { setForm({ ...p, imageUrl: p.imageUrl ?? "" }); setOpen(true); }}><Pencil size={12} /> Edit</Btn>
-              <Btn variant="danger" className="flex-1" onClick={() => void remove(p)}><Trash2 size={12} /> Delete</Btn>
-            </div>
+              <div className="flex items-start justify-between gap-2">
+                <p className="text-sm font-extrabold">{p.emoji} {p.name}</p>
+                <Switch checked={p.active} onChange={(v) => void toggle(p, v)} label={`${p.name} active`} />
+              </div>
+              <p className="mt-1 text-[11px] text-mut">{p.category} · stock {p.stock}</p>
+              <p className="mt-2 text-xl font-extrabold text-accent">{pkr(p.pricePkr)}</p>
+              <p className="mt-1 line-clamp-2 text-[12px] text-mut">{p.description}</p>
+              <div className="mt-4 flex gap-2 border-t border-line pt-3">
+                <Btn variant="ghost" className="flex-1" onClick={() => { setForm({ ...p, imageUrl: p.imageUrl ?? "" }); setOpen(true); }}><Pencil size={12} /> Edit</Btn>
+                <Btn variant="danger" className="flex-1" onClick={() => void remove(p)}><Trash2 size={12} /> Delete</Btn>
+              </div>
             </div>
           </div>
         ))}
@@ -121,10 +135,10 @@ export default function ProductsAdminPage() {
             </Field>
             <Field label="Emoji (photo na ho to)"><input className="input" value={form.emoji} onChange={(e) => setForm({ ...form, emoji: e.target.value })} /></Field>
           </div>
-          <Field label="Product photo URL (https)" hint="Pexels/Unsplash ya apni website ki image link. Khali chhorein to emoji dikhega.">
-            <input className="input" value={form.imageUrl ?? ""} onChange={(e) => setForm({ ...form, imageUrl: e.target.value })} placeholder="https://images.pexels.com/..." />
+          <Field label="Product photo URL (https ya /images/...)" hint="Apni website ki image link ya /images/products/... path. Khali chhorein to emoji dikhega.">
+            <input className="input" value={form.imageUrl ?? ""} onChange={(e) => setForm({ ...form, imageUrl: e.target.value })} placeholder="/images/products/keratin-serum.jpg" />
           </Field>
-          {form.imageUrl && /^https:\/\//.test(form.imageUrl) && (
+          {form.imageUrl && /^(https:\/\/|\/)/.test(form.imageUrl) && (
             // eslint-disable-next-line @next/next/no-img-element
             <img src={form.imageUrl} alt="Preview" className="h-32 w-full rounded-lg border border-line object-cover" />
           )}
