@@ -114,6 +114,11 @@ export function SiteHeader() {
               })}
               <div className="site-menu-rule" />
               <Link href="/dashboard/settings" onClick={() => setOpen(false)} className="site-mobile-menu-link"><span className="site-menu-icon"><Settings2 size={17} /></span><span>Salon settings</span></Link>
+              <a href="http://wordbitx.pk" target="_blank" className="site-mobile-menu-link">
+                <span className="site-menu-icon"><Globe size={17} /></span>
+                <span>WordbitX Official (wordbitx.pk)</span>
+                <ArrowUpRight size={14} className="ml-auto opacity-40" />
+              </a>
             </nav>
             <div className="site-mobile-menu-footer">
               <p className="flex items-center justify-center gap-1.5"><span className="h-1.5 w-1.5 rounded-full bg-brand" /> Elan Beauty · Lahore · Setup in 24h</p>
@@ -142,7 +147,7 @@ export function SiteFooter() {
     <footer className="site-footer">
       <div className="site-container site-footer-grid">
         <div className="site-footer-brand">
-          <Logo />
+          <Logo sub />
           <p>Missed messages. Better conversations. Bookings recovered.</p>
           <p className="site-footer-about">Elan Beauty — Lahore, Pakistan. Salons ke missed messages aur calls ko bookings mein badalne ka poora system.</p>
           <span className="site-footer-assurance"><ShieldCheck size={13} /> Official WhatsApp Cloud API · Phase 2 only</span>
@@ -160,7 +165,7 @@ export function SiteFooter() {
           <a href="https://elanbeauty.pk" target="_blank" rel="noreferrer"><Globe size={12} /> elanbeauty.pk</a>
           <a href="mailto:info@elanbeauty.pk"><Mail size={12} /> info@elanbeauty.pk</a>
           <a href="tel:+923251888841"><Phone size={12} /> PK +92 325 1888841</a>
-          <a href="tel:+19296197699"><Phone size={12} /> USA +1 (929) 619-7699</a>
+          <a href="mailto:info@wordbitx.pk"><Mail size={12} /> info@wordbitx.pk</a>
         </div>
         <div className="site-footer-links site-footer-roadmap">
           <h3>WHAT&apos;S NEXT</h3>

@@ -61,29 +61,49 @@ const NEW_FEATURES = [
 const PLANS = [
   {
     name: "Starter",
+    tier: "Essential Suite",
     pkr: "5,000",
     usd: "29",
-    tagline: "1 salon — bunyadi recovery",
+    tagline: "Single Studio — Automated Booking & Recovery Foundation",
     base: null as string | null,
-    features: ["Instant reply + booking", "Daily summary", "Missed-call → WhatsApp", "Owner override"],
+    features: [
+      "Instant reply + automated booking flow",
+      "Daily executive booking summary",
+      "Missed-call → instant WhatsApp recovery",
+      "Full owner override control",
+    ],
     popular: false,
   },
   {
     name: "Growth",
+    tier: "Signature Luxury · Most Popular",
     pkr: "10,000",
     usd: "59",
-    tagline: "Recovery + rishta",
-    base: "Starter ka sab kuch",
-    features: ["Missed-message follow-up + reminders", "Repeat customer pehchan", "Google review request", "Staff-wise booking", "CSV export"],
+    tagline: "Complete Client Retention, Loyalty & Revenue Recovery",
+    base: "Everything in Starter",
+    features: [
+      "Automated follow-ups & smart appointment reminders",
+      "VIP & repeat client recognition",
+      "Automated Google review requests",
+      "Stylist & specialist-wise booking",
+      "Full booking & revenue CSV export",
+    ],
     popular: true,
   },
   {
     name: "Business",
+    tier: "Executive Multi-Branch",
     pkr: "15,000",
     usd: "99",
-    tagline: "Poora system, multi-branch",
-    base: "Growth ka sab kuch",
-    features: ["Waitlist backfill", "Bridal / package upsell", "Voice-note summary", "Multi-branch + subah ki brief", "Priority support"],
+    tagline: "Flagship Multi-Branch Suite & Bridal Concierge",
+    base: "Everything in Growth",
+    features: [
+      "Smart waitlist & cancellation backfill",
+      "High-ticket bridal & package upsell flows",
+      "AI voice-note text summaries for owner",
+      "Multi-branch control + morning executive brief",
+      "Dedicated WordbitX priority support",
+    ],
     popular: false,
   },
 ];
@@ -366,9 +386,20 @@ export default function LandingPage() {
       {/* ── Pricing ─────────────────────────────────────────────────────── */}
       <section id="pricing" className="site-container home-section scroll-mt-24">
         <Reveal className="text-center">
-          <p className="text-[11px] font-extrabold uppercase tracking-[0.16em] text-accent">Pricing — confirmed</p>
-          <h2 className="mt-2 text-3xl font-extrabold sm:text-4xl">Seedha hisaab, koi chhupi fees nahi</h2>
-          <div className="mt-5 inline-flex rounded-lg border border-line bg-card p-1" role="group" aria-label="Currency">
+          <span className="badge-luxe mx-auto">
+            <Crown size={12} /> Executive Salon Plans · Powered by WordbitX
+          </span>
+          <h2 className="mt-3 text-3xl font-extrabold sm:text-4xl">
+            Transparent Investment — Tailored for Luxury Salons
+          </h2>
+          <p className="mx-auto mt-2.5 max-w-2xl text-[13.5px] leading-relaxed text-mut">
+            Har salon ke scale aur workflow ke mutabiq crafted packages — baghair kisi hidden charges ke, 24 ghante mein{" "}
+            <a href="http://wordbitx.pk" target="_blank" className="font-bold text-mint underline">
+              WordbitX
+            </a>{" "}
+            team ke sath mukammal onboarding.
+          </p>
+          <div className="mt-5 inline-flex rounded-lg border border-line bg-raised p-1" role="group" aria-label="Currency">
             {(["PKR", "USD"] as const).map((c) => (
               <button
                 key={c}
@@ -377,7 +408,7 @@ export default function LandingPage() {
                 onClick={() => setCurrency(c)}
                 className={cn(
                   "rounded-md px-4 py-1.5 text-xs font-extrabold transition-colors",
-                  currency === c ? "bg-brand text-white" : "text-mut hover:text-ink",
+                  currency === c ? "bg-brand text-white shadow-xs" : "text-mut hover:text-ink",
                 )}
               >
                 {c}
@@ -386,30 +417,21 @@ export default function LandingPage() {
           </div>
         </Reveal>
 
-        <Reveal group className="mt-9 grid gap-5 lg:grid-cols-3">
-          {PLANS.map((p) => (
-            <div
-              key={p.name}
-              className={cn(
-                "reveal-item card relative flex flex-col p-6",
-                p.popular && "border-brand",
-              )}
-            >
-              {p.popular && (
-                <span className="absolute -top-3 left-1/2 -translate-x-1/2 rounded-md bg-brand px-3 py-1 text-[10px] font-extrabold uppercase tracking-wider text-white">
-                  Most Popular
-                </span>
-              )}
-              <h3 className="text-lg font-extrabold">{p.name}</h3>
-              <p className="text-[12px] font-semibold text-mut">{p.tagline}</p>
-              <p className="mt-4 text-4xl font-extrabold tracking-tight">
-                {currency === "PKR" ? (
-                  <>
-                    <span className="text-base font-bold text-mut">PKR </span>
-                    {p.pkr}
-                  </>
-                ) : (
-                  <>${p.usd}</>
+        <Reveal group className="mt-10 grid items-stretch gap-6 lg:grid-cols-3">
+          {PLANS.map((p) => {
+            const waText = encodeURIComponent(
+              `Assalam o Alaikum! Mujhe Elan Beauty (${p.name} Package — PKR ${p.pkr}/month) ke baray mein details aur setup chahiye.`,
+            );
+            const waHref = `https://wa.me/923251888841?text=${waText}`;
+
+            return (
+              <div
+                key={p.name}
+                className={cn(
+                  "reveal-item relative flex flex-col rounded-2xl p-7 transition-all duration-300",
+                  p.popular
+                    ? "card-luxe-featured lg:-translate-y-2"
+                    : "card-luxe-tier",
                 )}
                 <span className="text-sm font-semibold text-mut">/month</span>
               </p>
@@ -430,22 +452,98 @@ export default function LandingPage() {
                 variant={p.popular ? "brand" : "ghost"}
                 className="mt-6 w-full"
               >
-                <Mail size={14} /> {p.name} ke liye enquiry
-              </RippleButton>
-            </div>
-          ))}
+                {p.popular ? (
+                  <span className="absolute -top-3.5 left-1/2 inline-flex -translate-x-1/2 items-center gap-1.5 rounded-full border border-[#e5c458] bg-gradient-to-r from-[#d4af37] to-[#b68919] px-3.5 py-1 text-[10px] font-extrabold uppercase tracking-[0.14em] text-[#091224] shadow-md">
+                    <Crown size={11} /> Most Popular · Recommended
+                  </span>
+                ) : (
+                  <span className="w-fit rounded-md border border-line bg-raised px-2.5 py-1 text-[10px] font-extrabold uppercase tracking-[0.12em] text-mint">
+                    {p.tier}
+                  </span>
+                )}
+
+                <div className={cn(p.popular ? "mt-2" : "mt-3")}>
+                  <div className="flex items-center justify-between gap-2">
+                    <h3 className={cn("text-xl font-extrabold", p.popular ? "text-white" : "text-ink")}>
+                      {p.name}
+                    </h3>
+                    {p.popular && (
+                      <span className="rounded-full border border-[#d4af37]/40 bg-[#d4af37]/15 px-2.5 py-0.5 text-[10px] font-bold text-[#f3d474]">
+                        Signature Tier
+                      </span>
+                    )}
+                  </div>
+                  <p className={cn("mt-1 text-[12px] font-medium leading-relaxed", p.popular ? "text-slate-300" : "text-mut")}>
+                    {p.tagline}
+                  </p>
+                </div>
+
+                <div className={cn("my-5 border-y py-4", p.popular ? "border-white/15" : "border-line")}>
+                  <p className={cn("text-4xl font-extrabold tracking-tight", p.popular ? "text-white" : "text-ink")}>
+                    {currency === "PKR" ? (
+                      <>
+                        <span className={cn("text-base font-bold", p.popular ? "text-[#e5c458]" : "text-mint")}>PKR </span>
+                        {p.pkr}
+                      </>
+                    ) : (
+                      <>
+                        <span className={cn("text-base font-bold", p.popular ? "text-[#e5c458]" : "text-mint")}>$</span>
+                        {p.usd}
+                      </>
+                    )}
+                    <span className={cn("text-xs font-semibold", p.popular ? "text-slate-300" : "text-mut")}> / month</span>
+                  </p>
+                </div>
+
+                <ul className="grid flex-1 gap-3">
+                  {p.base && (
+                    <li className={cn("flex items-start gap-2.5 text-[13px] font-extrabold", p.popular ? "text-[#f3d474]" : "text-mint")}>
+                      <Crown size={14} className="mt-0.5 shrink-0" /> {p.base} +
+                    </li>
+                  )}
+                  {p.features.map((f) => (
+                    <li
+                      key={f}
+                      className={cn("flex items-start gap-2.5 text-[13px]", p.popular ? "text-slate-100" : "text-ink")}
+                    >
+                      <span
+                        className={cn(
+                          "mt-0.5 grid h-4 w-4 shrink-0 place-items-center rounded-full",
+                          p.popular ? "bg-[#d4af37]/25 text-[#f3d474]" : "bg-brand-soft text-accent",
+                        )}
+                      >
+                        <Check size={11} />
+                      </span>
+                      <span>{f}</span>
+                    </li>
+                  ))}
+                </ul>
+
+                <RippleButton
+                  href={waHref}
+                  variant={p.popular ? "luxe" : "brand"}
+                  className="mt-7 w-full"
+                >
+                  <MessageCircle size={15} />
+                  {p.popular
+                    ? "Contact on WhatsApp · +92 325 1888841"
+                    : `WhatsApp par rabta — ${p.name}`}
+                </RippleButton>
+              </div>
+            );
+          })}
         </Reveal>
 
-        <Reveal className="mt-6 grid gap-3 sm:grid-cols-2">
-          <div className="card flex items-start gap-3 p-4 text-[13px]">
-            <Settings2 size={16} className="mt-0.5 shrink-0 text-accent" />
+        <Reveal className="mt-7 grid gap-4 sm:grid-cols-2">
+          <div className="card flex items-start gap-3.5 border-l-2 border-l-brand p-4 text-[13px]">
+            <Settings2 size={17} className="mt-0.5 shrink-0 text-mint" />
             <p>
               <b>Optional setup: PKR 5,000 / $29</b>
               <span className="text-mut"> — services, prices aur FAQs Elan Beauty team khud enter karegi.</span>
             </p>
           </div>
-          <div className="card flex items-start gap-3 p-4 text-[13px]">
-            <Mail size={16} className="mt-0.5 shrink-0 text-accent" />
+          <div className="card flex items-start gap-3.5 border-l-2 border-l-luxe p-4 text-[13px]">
+            <MessageCircle size={17} className="mt-0.5 shrink-0 text-mint" />
             <p>
               <b>Phase 1 mein checkout nahi</b>
               <span className="text-mut"> — sale enquiry par hoti hai: </span>
@@ -545,9 +643,13 @@ export default function LandingPage() {
               </RippleButton>
             </div>
             <div className="mt-6 flex flex-wrap justify-center gap-x-6 gap-y-2 text-[12px] font-semibold text-mut">
-              <span className="inline-flex items-center gap-1.5"><Phone size={12} className="text-accent" /> PK +92 325 1888841</span>
-              <span className="inline-flex items-center gap-1.5"><Phone size={12} className="text-accent" /> USA +1 (929) 619-7699</span>
-              <span className="inline-flex items-center gap-1.5"><Clock size={12} className="text-accent" /> Setup: 24 ghante</span>
+              <a href="https://wa.me/923251888841" target="_blank" className="inline-flex items-center gap-1.5 hover:text-mint">
+                <Phone size={12} className="text-mint" /> WhatsApp +92 325 1888841
+              </a>
+              <a href="http://wordbitx.pk" target="_blank" className="inline-flex items-center gap-1.5 font-bold text-mint hover:underline">
+                Powered by WordbitX (wordbitx.pk)
+              </a>
+              <span className="inline-flex items-center gap-1.5"><Clock size={12} className="text-mint" /> Setup: 24 ghante</span>
             </div>
           </Reveal>
         </div>

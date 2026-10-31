@@ -31,7 +31,7 @@ export function RippleButton({
   onClick?: () => void;
   href?: string;
   disabled?: boolean;
-  variant?: "brand" | "ghost";
+  variant?: "brand" | "ghost" | "luxe";
   title?: string;
 }) {
   const ref = useRef<HTMLElement | null>(null);
@@ -50,9 +50,29 @@ export function RippleButton({
     window.setTimeout(() => span.remove(), 600);
   }, []);
 
-  const cls = cn(variant === "brand" ? "btn-brand" : "btn-ghost", className);
+  const cls = cn(
+    variant === "brand" ? "btn-brand" : variant === "luxe" ? "btn-luxe" : "btn-ghost",
+    className,
+  );
 
   if (href) {
+    const isExternal = /^https?:\/\//i.test(href);
+    if (isExternal) {
+      return (
+        <a
+          href={href}
+          target="_blank"
+          rel="noopener"
+          ref={ref as never}
+          className={cls}
+          title={title}
+          onPointerDown={spawn}
+          onClick={onClick}
+        >
+          {children}
+        </a>
+      );
+    }
     return (
       <Link
         href={href}
