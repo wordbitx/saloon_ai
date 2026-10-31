@@ -238,10 +238,10 @@ function applyTheme(mode: ThemeMode) {
 }
 
 export function ThemeToggle({ compact = false }: { compact?: boolean }) {
-  const [mode, setMode] = useState<ThemeMode>("dark");
+  const [mode, setMode] = useState<ThemeMode>("light");
 
   useEffect(() => {
-    const saved = (localStorage.getItem("wbx-theme") as ThemeMode | null) ?? "dark";
+    const saved = (localStorage.getItem("wbx-theme") as ThemeMode | null) ?? "light";
     setMode(saved);
     applyTheme(saved);
     const mq = window.matchMedia("(prefers-color-scheme: light)");

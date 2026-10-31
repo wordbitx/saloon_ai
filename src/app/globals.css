@@ -20,23 +20,6 @@
 }
 
 :root,
-[data-theme="dark"] {
-  --page: #030814;
-  --card: #050d21;
-  --raised: #071531;
-  --ink: #edf2fb;
-  --mut: #8b9cbd;
-  --line: #10203f;
-  --brand: #1ca830;
-  --brand-soft: rgba(28, 168, 48, 0.14);
-  --mint: #9fdda8;
-  --accent: #61d171;
-  --bubble: #0a2b13;
-  --bubble-ink: #d9f3dd;
-  --owner-bubble: #052767;
-  color-scheme: dark;
-}
-
 [data-theme="light"] {
   --page: #f3f5fa;
   --card: #ffffff;
@@ -52,6 +35,23 @@
   --bubble-ink: #0c3a17;
   --owner-bubble: #052767;
   color-scheme: light;
+}
+
+[data-theme="dark"] {
+  --page: #030814;
+  --card: #050d21;
+  --raised: #071531;
+  --ink: #edf2fb;
+  --mut: #8b9cbd;
+  --line: #10203f;
+  --brand: #1ca830;
+  --brand-soft: rgba(28, 168, 48, 0.14);
+  --mint: #9fdda8;
+  --accent: #61d171;
+  --bubble: #0a2b13;
+  --bubble-ink: #d9f3dd;
+  --owner-bubble: #052767;
+  color-scheme: dark;
 }
 
 html {
