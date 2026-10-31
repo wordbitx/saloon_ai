@@ -46,7 +46,7 @@ export function ProductCatalog({
   heading?: boolean;
 }) {
   const [products, setProducts] = useState<ShelfProduct[]>(FALLBACK_PRODUCTS);
-  const [salon, setSalon] = useState("Elan Beauty");
+  const [salon, setSalon] = useState("Glow Salon");
   const [loading, setLoading] = useState(false);
   const [pick, setPick] = useState<ShelfProduct | null>(null);
   const [qty, setQty] = useState(1);
@@ -99,25 +99,22 @@ export function ProductCatalog({
   };
 
   return (
-    <section className={limit ? "home-section-band home-section" : "mx-auto max-w-6xl px-4 py-10"}>
-      <div className={limit ? "site-container" : ""}>
+    <section className={limit ? "site-container home-section pt-2" : "mx-auto max-w-6xl px-4 py-10"}>
       {heading && (
-        <div className="mb-8 flex flex-wrap items-end justify-between gap-4">
+        <div className="mb-6 flex flex-wrap items-end justify-between gap-3">
           <div>
-            <span className="badge-luxe">Signature Retail Boutique</span>
-            <h2 className="mt-2.5 text-3xl font-extrabold sm:text-4xl">
-              Curated Salon Care &amp; Bridal Essentials
-            </h2>
+            <p className="text-[11px] font-extrabold uppercase tracking-[0.16em] text-accent">Salon shelf</p>
+            <h2 className="mt-2 text-3xl font-extrabold sm:text-4xl">Products — jo admin add kare</h2>
             <p className="mt-2 max-w-xl text-sm leading-relaxed text-mut">
-              {salon || "Elan Beauty"} ki exclusive retail collection — har order seedha executive dashboard mein record hota hai.
+              {salon || "Salon"} ki retail shelf. Order yahin se jata hai — seedha admin dashboard mein, WhatsApp spam nahi.
             </p>
           </div>
           {limit ? (
-            <RippleButton href="/products" variant="brand" className="!py-2.5 text-xs">
-              Explore Full Boutique <ArrowRight size={13} />
+            <RippleButton href="/products" variant="ghost" className="!py-2 text-xs">
+              Poori shelf <ArrowRight size={13} />
             </RippleButton>
           ) : (
-            <Link href="/" className="text-xs font-bold text-accent hover:underline">← Back to Home</Link>
+            <Link href="/" className="text-xs font-bold text-accent hover:underline">← Home</Link>
           )}
         </div>
       )}
@@ -139,35 +136,31 @@ export function ProductCatalog({
         </div>
       )}
 
-      <div className="grid grid-cols-2 gap-3.5 sm:grid-cols-3 sm:gap-5 lg:grid-cols-4 xl:grid-cols-5">
+      <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 sm:gap-4 lg:grid-cols-4 xl:grid-cols-5">
         {loading && Array.from({ length: limit ?? 6 }).map((_, i) => <div key={i} className="card h-64 animate-pulse" />)}
         {shown.map((p) => (
-          <article key={p.id} className="card-luxe-tier group flex flex-col overflow-hidden rounded-2xl transition-all duration-300">
+          <article key={p.id} className="card group flex flex-col overflow-hidden transition-colors hover:border-brand/50">
             <div className="relative aspect-[4/3] overflow-hidden border-b border-line">
-              <ProductImage p={p} className="h-full w-full transition-transform duration-500 group-hover:scale-[1.06]" />
-              <span className="absolute left-2.5 top-2.5 rounded-full border border-[#e5c158]/50 bg-[#0b162e]/85 px-2.5 py-0.5 text-[8.5px] font-extrabold uppercase tracking-wider text-[#f3d474] backdrop-blur">
-                {p.category}
-              </span>
+              <ProductImage p={p} className="h-full w-full transition-transform duration-500 group-hover:scale-[1.05]" />
+              <span className="absolute left-2 top-2 rounded bg-black/60 px-1.5 py-0.5 text-[8px] font-extrabold uppercase tracking-wide text-white backdrop-blur">{p.category}</span>
               {p.stock > 0 && p.stock <= 5 && (
-                <span className="absolute right-2.5 top-2.5 rounded-full bg-amber-500/95 px-2 py-0.5 text-[8px] font-extrabold uppercase text-black">
-                  Only {p.stock} left
-                </span>
+                <span className="absolute right-2 top-2 rounded bg-amber-500/90 px-1.5 py-0.5 text-[8px] font-extrabold uppercase text-black">Sirf {p.stock} bache</span>
               )}
             </div>
-            <div className="flex flex-1 flex-col p-3.5">
-              <h3 className="truncate text-[13.5px] font-extrabold">{p.name}</h3>
+            <div className="flex flex-1 flex-col p-3">
+              <h3 className="truncate text-[13px] font-extrabold">{p.name}</h3>
               <p className="mt-1 line-clamp-2 flex-1 text-[11px] leading-relaxed text-mut">{p.description}</p>
-              <div className="mt-3 flex items-baseline justify-between gap-2 border-t border-line pt-2.5">
-                <p className="text-base font-extrabold text-mint">{pkr(p.pricePkr)}</p>
-                <p className="text-[9.5px] font-semibold text-mut">{p.stock > 0 ? `${p.stock} in stock` : "Out of stock"}</p>
+              <div className="mt-3 flex items-baseline justify-between gap-2">
+                <p className="text-base font-extrabold text-accent">{pkr(p.pricePkr)}</p>
+                <p className="text-[9px] font-semibold text-mut">{p.stock > 0 ? `${p.stock} in stock` : "Out of stock"}</p>
               </div>
               <button
                 type="button"
                 disabled={p.stock < 1}
                 onClick={() => { setPick(p); setQty(1); setErr(null); setDone(null); }}
-                className="btn-brand mt-3 w-full !py-2 text-[11.5px] disabled:opacity-40"
+                className="btn-brand mt-2.5 w-full !py-2 text-[11px] disabled:opacity-40"
               >
-                <ShoppingBag size={12} /> Reserve / Order
+                <ShoppingBag size={12} /> Place Order
               </button>
             </div>
           </article>
@@ -175,7 +168,6 @@ export function ProductCatalog({
         {!loading && shown.length === 0 && (
           <p className="card col-span-full px-4 py-8 text-center text-sm text-mut">Abhi shelf khali hai. Admin product add kare to yahan aa jayega.</p>
         )}
-      </div>
       </div>
 
       {pick && (

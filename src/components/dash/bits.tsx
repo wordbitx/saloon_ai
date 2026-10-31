@@ -40,17 +40,11 @@ export function Panel({
   return (
     <section className={cn("card overflow-hidden", className)}>
       {(title || action) && (
-        <div
-          className="flex flex-wrap items-center justify-between gap-2 border-b border-line px-4 py-3"
-          style={{ background: "linear-gradient(90deg, var(--raised) 0%, var(--card) 100%)" }}
-        >
+        <div className="flex flex-wrap items-center justify-between gap-2 border-b border-line px-4 py-3">
           <div>
             {title && (
               <h2 className="flex items-center gap-2 text-[13px] font-extrabold">
-                <span className="grid h-6 w-6 shrink-0 place-items-center rounded-md border border-luxe/35 bg-luxe-soft text-mint">
-                  {icon}
-                </span>
-                <span>{title}</span>
+                {icon} {title}
               </h2>
             )}
             {subtitle && <p className="mt-0.5 text-[11px] text-mut">{subtitle}</p>}
@@ -175,17 +169,15 @@ export function Empty({ children }: { children: ReactNode }) {
   return <p className="rounded-lg border border-dashed border-line px-4 py-6 text-center text-[12px] text-mut">{children}</p>;
 }
 
-export function Tag({ children, tone = "mut" }: { children: ReactNode; tone?: "mut" | "brand" | "gold" | "amber" | "red" }) {
+export function Tag({ children, tone = "mut" }: { children: ReactNode; tone?: "mut" | "brand" | "amber" | "red" }) {
   const cls =
     tone === "brand"
-      ? "bg-brand-soft text-accent border-brand/20"
-      : tone === "gold"
-        ? "bg-luxe-soft text-mint border-luxe/35"
-        : tone === "amber"
-          ? "bg-amber-500/10 text-amber-500 border-amber-500/30"
-          : tone === "red"
-            ? "bg-red-500/10 text-red-500 border-red-500/30"
-            : "bg-raised text-mut border-line";
+      ? "bg-brand-soft text-accent border-transparent"
+      : tone === "amber"
+        ? "bg-amber-500/10 text-amber-400 border-amber-500/30"
+        : tone === "red"
+          ? "bg-red-500/10 text-red-400 border-red-500/30"
+          : "bg-raised text-mut border-line";
   return <span className={cn("inline-flex items-center rounded-md border px-1.5 py-0.5 text-[9.5px] font-extrabold uppercase tracking-wide", cls)}>{children}</span>;
 }
 
@@ -193,7 +185,7 @@ export function Avatar({ name, size = 36 }: { name: string; size?: number }) {
   const initials = name.split(" ").map((p) => p[0]).slice(0, 2).join("").toUpperCase();
   return (
     <span
-      className="grid shrink-0 place-items-center rounded-full border border-luxe/40 bg-brand font-extrabold text-[#f3d474]"
+      className="grid shrink-0 place-items-center rounded-full bg-brand-soft font-extrabold text-accent"
       style={{ width: size, height: size, fontSize: size * 0.36 }}
       aria-hidden
     >

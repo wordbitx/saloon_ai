@@ -3,7 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Zap, MessageCircle, LayoutDashboard, Settings2, Tags, Menu, X, Mail, Phone, Globe, ShieldCheck, ListChecks, ArrowUpRight, ShoppingBag } from "lucide-react";
+import { Zap, MessageCircle, LayoutDashboard, Settings2, Tags, Menu, X, Mail, Phone, Globe, FlaskConical, ShieldCheck, ListChecks, ArrowUpRight, ShoppingBag } from "lucide-react";
 import { Logo, ThemeToggle, ScrollProgress } from "@/components/ui";
 
 const NAV = [
@@ -54,13 +54,15 @@ export function SiteHeader() {
     };
   }, [open]);
 
+  // Dashboard apna navigation bar/aside use karta hai. Root public chrome yahan
+  // double header/footer ki wajah nahi banta. Client aur server dono same path jante hain.
   if (isApp) return null;
 
   return (
     <>
       <header className="site-header">
         <div className="site-container site-header-inner">
-          <Link href="/" aria-label="Elan Beauty home" onClick={() => setOpen(false)} className="site-logo-link">
+          <Link href="/" aria-label="Elan Beauty by WordbitX home" onClick={() => setOpen(false)} className="site-logo-link">
             <Logo sub />
           </Link>
           <nav className="site-desktop-nav" aria-label="Main navigation">
@@ -97,7 +99,7 @@ export function SiteHeader() {
           <button type="button" onClick={() => setOpen(false)} className="site-menu-scrim" aria-label="Menu band karein" tabIndex={-1} />
           <div ref={menuRef} className="site-mobile-menu" role="dialog" aria-modal="true" aria-label="Main navigation">
             <div className="site-mobile-menu-heading">
-              <div><span className="site-mobile-eyebrow">ELAN BEAUTY</span><p>Explore your workspace</p></div>
+              <div><span className="site-mobile-eyebrow">WORDBITX</span><p>Explore your workspace</p></div>
               <button type="button" data-menu-close onClick={() => setOpen(false)} aria-label="Menu band karein" className="site-icon-button"><X size={19} /></button>
             </div>
             <nav className="site-mobile-menu-nav" aria-label="Mobile navigation">
@@ -114,14 +116,9 @@ export function SiteHeader() {
               })}
               <div className="site-menu-rule" />
               <Link href="/dashboard/settings" onClick={() => setOpen(false)} className="site-mobile-menu-link"><span className="site-menu-icon"><Settings2 size={17} /></span><span>Salon settings</span></Link>
-              <a href="http://wordbitx.pk" target="_blank" className="site-mobile-menu-link">
-                <span className="site-menu-icon"><Globe size={17} /></span>
-                <span>WordbitX Official (wordbitx.pk)</span>
-                <ArrowUpRight size={14} className="ml-auto opacity-40" />
-              </a>
             </nav>
             <div className="site-mobile-menu-footer">
-              <p className="flex items-center justify-center gap-1.5"><span className="h-1.5 w-1.5 rounded-full bg-brand" /> Elan Beauty · Lahore · Setup in 24h</p>
+              <p className="flex items-center justify-center gap-1.5"><span className="h-1.5 w-1.5 rounded-full bg-brand" /> Made for Lahore salons · Setup in 24h</p>
             </div>
           </div>
         </div>
@@ -147,9 +144,9 @@ export function SiteFooter() {
     <footer className="site-footer">
       <div className="site-container site-footer-grid">
         <div className="site-footer-brand">
-          <Logo sub />
+          <Logo />
           <p>Missed messages. Better conversations. Bookings recovered.</p>
-          <p className="site-footer-about">Elan Beauty — Lahore, Pakistan. Salons ke missed messages aur calls ko bookings mein badalne ka poora system.</p>
+          <p className="site-footer-about">WordbitX — Software Development Company, Lahore, Pakistan. Salons ke missed messages aur calls ko bookings mein badalne ka poora system.</p>
           <span className="site-footer-assurance"><ShieldCheck size={13} /> Official WhatsApp Cloud API · Phase 2 only</span>
         </div>
         <div className="site-footer-links">
@@ -162,19 +159,24 @@ export function SiteFooter() {
         </div>
         <div className="site-footer-links">
           <h3>GET IN TOUCH</h3>
-          <a href="https://elanbeauty.pk" target="_blank" rel="noreferrer"><Globe size={12} /> elanbeauty.pk</a>
-          <a href="mailto:info@elanbeauty.pk"><Mail size={12} /> info@elanbeauty.pk</a>
-          <a href="tel:+923251888841"><Phone size={12} /> PK +92 325 1888841</a>
+          <a href="http://wordbitx.pk" target="_blank"><Globe size={12} /> wordbitx.pk</a>
+          <a href="https://wa.me/923251888841" target="_blank"><Phone size={12} /> WhatsApp +92 325 1888841</a>
           <a href="mailto:info@wordbitx.pk"><Mail size={12} /> info@wordbitx.pk</a>
+          <a href="tel:+19296197699"><Phone size={12} /> USA +1 (929) 619-7699</a>
         </div>
         <div className="site-footer-links site-footer-roadmap">
-          <h3>WHAT&apos;S NEXT</h3>
+          <h3>WHAT'S NEXT</h3>
           <p>Phase 2: live WhatsApp, after Meta Business verification and approved templates.</p>
           <p>Instagram DMs · Clinics after 5 paying salons.</p>
         </div>
       </div>
       <div className="site-container site-footer-bottom">
-        <p>© {new Date().getFullYear()} Elan Beauty · Missed Booking Recovery</p>
+        <p>
+          © {new Date().getFullYear()} Elan Beauty · Powered by{" "}
+          <a href="http://wordbitx.pk" target="_blank" className="font-bold text-accent hover:underline">
+            WordbitX (wordbitx.pk)
+          </a>
+        </p>
         <p>Made for salons. No guarantees. No spam.</p>
         <span>LAHORE, PAKISTAN <span className="text-accent">↗</span></span>
       </div>

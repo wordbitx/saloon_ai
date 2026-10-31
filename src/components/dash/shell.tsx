@@ -47,8 +47,8 @@ function SidebarBody({
   return (
     <>
       <div className="dash-sidebar-brand">
-        <Link href="/dashboard" onClick={onNavigate} aria-label="Elan Beauty Dashboard">
-          {collapsed ? <span className="dash-collapsed-brand">E</span> : <Logo sub />}
+        <Link href="/dashboard" onClick={onNavigate} aria-label="WordbitX Dashboard">
+          {collapsed ? <span className="dash-collapsed-brand">W</span> : <Logo sub />}
         </Link>
         {onClose && <button type="button" onClick={onClose} data-drawer-close className="dash-drawer-close" aria-label="Menu band karein"><X size={18} /></button>}
       </div>
@@ -96,7 +96,7 @@ function SidebarBody({
           {!collapsed && <ArrowUpRight size={13} className="ml-auto" />}
         </Link>
         <Link href="/admin" onClick={onNavigate} className={cn("dash-sidebar-account", collapsed && "is-collapsed")} title="Owner / Admin profile">
-          <span className="dash-account-avatar">{salonName ? salonName.split(" ").slice(0, 2).map((w) => w[0]).join("") : "EB"}</span>
+          <span className="dash-account-avatar">{salonName ? salonName.split(" ").slice(0, 2).map((w) => w[0]).join("") : "GS"}</span>
           {!collapsed && <span className="min-w-0"><b>Salon owner</b><small><span className={cn("h-1 w-1 rounded-full", admin ? "bg-accent" : "bg-mut")} /> {admin ? "Admin access ON" : "Admin access OFF"}</small></span>}
           {!collapsed && <ArrowUpRight size={12} className="ml-auto text-mut" />}
         </Link>
@@ -303,7 +303,7 @@ function ShellInner({ children }: { children: ReactNode }) {
       <div className={cn("dash-work-area", collapsed && "is-collapsed")} inert={open || undefined}>
         <Topbar onMenu={() => setOpen(true)} menuOpen={open} salon={salon} />
         <div className="dash-page-content">{children}</div>
-        <div className="dash-footer"><span><Zap size={10} className="text-accent" /> Elan Beauty · Missed Booking Recovery</span><span>Setup in 24h · Lahore</span><Link href="/">Product page <ArrowUpRight size={10} /></Link></div>
+        <div className="dash-footer"><span><Zap size={10} className="text-accent" /> WordbitX · Missed Booking Recovery</span><span>Setup in 24h · Lahore</span><Link href="/">Product page <ArrowUpRight size={10} /></Link></div>
       </div>
     </div>
   );
