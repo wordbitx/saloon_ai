@@ -60,8 +60,6 @@
 .dash-salon-select { display: flex; align-items: center; gap: 6px; padding: 7px 9px; border-radius: 8px; border: 1px solid var(--line); background: var(--card); }
 .dash-salon-select > select { max-width: 142px; background: transparent; font-size: 10px; font-weight: 650; color: var(--ink); outline: 0; }
 .dash-salon-select option { background: var(--card); color: var(--ink); }
-.dash-theme-control > div { border-radius: 8px; padding: 2px; }
-.dash-theme-control button { min-width: 29px; height: 28px; display: grid; place-items: center; }
 .dash-admin-shortcut { font-size: 10px !important; padding: 9px 12px !important; min-height: 34px; border-radius: 8px !important; }
 .dash-logout-button { height: 34px; width: 34px; display: grid; place-items: center; border: 1px solid var(--line); border-radius: 8px; color: var(--mut); }
 .dash-logout-button:hover { color: var(--accent); border-color: var(--brand); }
@@ -122,8 +120,6 @@
   .dash-salon-caption { max-width: 160px; font-size: 8px; }
   .dash-topbar-actions { gap: 7px; }
   .dash-topbar-inner .dash-page-title { font-size: 12px; }
-  .dash-theme-control button { min-width: 27px; height: 28px; }
-  .dash-theme-control > div { border: 0; background: var(--raised); }
   .dash-admin-shortcut { padding: 8px 10px !important; min-height: 32px; }
   .dash-logout-button { display: none; }
   .dash-page-content > div > .flex:first-child > div > h1 { font-size: 21px; }
@@ -138,7 +134,6 @@
   .dash-admin-shortcut { width: 32px; height: 32px; padding: 7px !important; }
   .dash-breadcrumb { flex: 1; }
   .dash-topbar-inner .dash-page-title { max-width: 112px; overflow: hidden; text-overflow: ellipsis; }
-  .dash-theme-control button { min-width: 26px; padding: 3px; }
   .dash-menu-trigger { width: 34px; height: 34px; border-radius: 8px; }
   .dash-mobile-sidebar .dash-sidebar-brand { min-height: 68px; height: 68px; }
   .dash-mobile-sidebar .dash-nav-group { margin-bottom: 16px; }

@@ -17,7 +17,8 @@ export async function POST(req: Request) {
   const body = (await req.json().catch(() => ({}))) as { pin?: string; role?: string };
   const pin = clean(body.pin, 12);
   if (!pin) return Response.json({ error: "pin_required", message: "Admin PIN likhein." }, { status: 400 });
-  if (pin !== salon.adminPin) {
+  const expectedPin = (salon.adminPin || process.env.ADMIN_PIN || "2468").trim();
+  if (pin !== expectedPin) {
     return Response.json({ error: "invalid_pin", message: "PIN ghalat hai. Demo PIN: 2468 (Admin page par likha hai)." }, { status: 401 });
   }
   const jar = await cookies();

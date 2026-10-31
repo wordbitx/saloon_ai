@@ -10,7 +10,7 @@ import {
   type MouseEvent as ReactMouseEvent,
 } from "react";
 import Link from "next/link";
-import { Moon, Sun, Monitor } from "lucide-react";
+import { Moon, Sun, Monitor, ChevronDown, Check } from "lucide-react";
 
 export function cn(...parts: (string | false | null | undefined)[]) {
   return parts.filter(Boolean).join(" ");
@@ -53,6 +53,22 @@ export function RippleButton({
   const cls = cn(variant === "brand" ? "btn-brand" : "btn-ghost", className);
 
   if (href) {
+    if (/^https?:\/\//i.test(href)) {
+      return (
+        <a
+          href={href}
+          target="_blank"
+          rel="noopener"
+          ref={ref as never}
+          className={cls}
+          title={title}
+          onPointerDown={spawn}
+          onClick={onClick}
+        >
+          {children}
+        </a>
+      );
+    }
     return (
       <Link
         href={href}
@@ -239,6 +255,8 @@ function applyTheme(mode: ThemeMode) {
 
 export function ThemeToggle({ compact = false }: { compact?: boolean }) {
   const [mode, setMode] = useState<ThemeMode>("dark");
+  const [open, setOpen] = useState(false);
+  const wrapRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const saved = (localStorage.getItem("wbx-theme") as ThemeMode | null) ?? "dark";
@@ -252,10 +270,27 @@ export function ThemeToggle({ compact = false }: { compact?: boolean }) {
     return () => mq.removeEventListener("change", onChange);
   }, []);
 
+  useEffect(() => {
+    if (!open) return;
+    const onDown = (e: MouseEvent) => {
+      if (wrapRef.current && !wrapRef.current.contains(e.target as Node)) setOpen(false);
+    };
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setOpen(false);
+    };
+    document.addEventListener("mousedown", onDown);
+    document.addEventListener("keydown", onKey);
+    return () => {
+      document.removeEventListener("mousedown", onDown);
+      document.removeEventListener("keydown", onKey);
+    };
+  }, [open]);
+
   const pick = (m: ThemeMode) => {
     setMode(m);
     localStorage.setItem("wbx-theme", m);
     applyTheme(m);
+    setOpen(false);
   };
 
   const opts: { key: ThemeMode; icon: ReactNode; label: string }[] = [
@@ -264,24 +299,54 @@ export function ThemeToggle({ compact = false }: { compact?: boolean }) {
     { key: "system", icon: <Monitor size={13} />, label: "System" },
   ];
 
+  const activeOpt = opts.find((o) => o.key === mode) ?? opts[0];
+
   return (
-    <div className="flex items-center rounded-lg border border-line bg-card p-0.5" role="group" aria-label="Theme switcher">
-      {opts.map((o) => (
-        <button
-          key={o.key}
-          type="button"
-          aria-pressed={mode === o.key}
-          title={`${o.label} theme`}
-          onClick={() => pick(o.key)}
-          className={cn(
-            "flex items-center gap-1 rounded-md px-2 py-1 text-[11px] font-semibold transition-colors",
-            mode === o.key ? "bg-brand text-white" : "text-mut hover:text-ink",
-          )}
+    <div ref={wrapRef} className="relative inline-block">
+      <button
+        type="button"
+        onClick={() => setOpen((v) => !v)}
+        aria-haspopup="menu"
+        aria-expanded={open}
+        aria-label="Theme switcher"
+        title={`Theme: ${activeOpt.label}`}
+        className="flex items-center gap-1.5 rounded-lg border border-line bg-card px-2.5 py-1.5 text-[11.5px] font-semibold text-ink transition-colors hover:border-brand"
+      >
+        <span className="text-accent">{activeOpt.icon}</span>
+        {!compact && <span className="hidden sm:inline">{activeOpt.label}</span>}
+        <ChevronDown size={12} className={cn("text-mut transition-transform", open && "rotate-180")} />
+      </button>
+
+      {open && (
+        <div
+          role="menu"
+          aria-label="Select theme"
+          className="absolute right-0 top-[calc(100%+6px)] z-[95] min-w-[132px] overflow-hidden rounded-xl border border-line bg-card p-1 shadow-lg"
         >
-          {o.icon}
-          {!compact && <span className="hidden sm:inline">{o.label}</span>}
-        </button>
-      ))}
+          {opts.map((o) => {
+            const isSelected = mode === o.key;
+            return (
+              <button
+                key={o.key}
+                type="button"
+                role="menuitemradio"
+                aria-checked={isSelected}
+                onClick={() => pick(o.key)}
+                className={cn(
+                  "flex w-full items-center justify-between gap-2 rounded-lg px-2.5 py-2 text-left text-[12px] font-semibold transition-colors",
+                  isSelected ? "bg-brand-soft text-accent" : "text-mut hover:bg-raised hover:text-ink",
+                )}
+              >
+                <span className="flex items-center gap-2">
+                  {o.icon}
+                  <span>{o.label}</span>
+                </span>
+                {isSelected && <Check size={13} className="text-accent" />}
+              </button>
+            );
+          })}
+        </div>
+      )}
     </div>
   );
 }
@@ -350,9 +415,9 @@ export function Logo({ sub = false }: { sub?: boolean }) {
       </span>
       <span className="leading-none">
         <span className="block text-[15px] font-extrabold tracking-tight text-ink">
-          Wordbit<span className="text-accent">X</span>
+          Elan <span className="text-accent">Beauty</span>
         </span>
-        {sub && <span className="mt-0.5 block text-[9.5px] font-semibold uppercase tracking-[0.14em] text-mut">Missed Booking Recovery</span>}
+        {sub && <span className="mt-0.5 block text-[9.5px] font-semibold uppercase tracking-[0.14em] text-mut">by WordbitX</span>}
       </span>
     </span>
   );

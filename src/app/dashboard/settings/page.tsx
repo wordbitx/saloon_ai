@@ -169,7 +169,7 @@ export default function SettingsPage() {
             <div className="mt-4 grid gap-4 sm:grid-cols-2">
               <div>
                 <label className="label" htmlFor="s-name">Salon ka naam</label>
-                <input id="s-name" className="input" value={form.name} onChange={(e) => set("name", e.target.value)} placeholder="Glow Salon" />
+                <input id="s-name" className="input" value={form.name} onChange={(e) => set("name", e.target.value)} placeholder="Elan Beauty" />
               </div>
               <div>
                 <label className="label" htmlFor="s-area">Area / Location</label>

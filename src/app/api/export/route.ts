@@ -19,7 +19,7 @@ export async function GET() {
   ]);
 
   const lines: string[] = [
-    row(`${salon.name} — WordbitX Missed Booking Recovery export`),
+    row(`${salon.name} — Elan Beauty Missed Booking Recovery export`),
     "",
     row("BOOKINGS"),
     row("Customer", "Phone (masked)", "Service", "Staff", "Date", "Time", "Status", "Source"),
@@ -41,7 +41,7 @@ export async function GET() {
   return new Response(lines.join("\n"), {
     headers: {
       "Content-Type": "text/csv; charset=utf-8",
-      "Content-Disposition": `attachment; filename="wordbitx-${salon.slug}-demo.csv"`,
+      "Content-Disposition": `attachment; filename="elan-beauty-${salon.slug}-demo.csv"`,
     },
   });
 }

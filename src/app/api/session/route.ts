@@ -1,8 +1,9 @@
 import { cookies } from "next/headers";
 import { db } from "@/db";
 import { salons } from "@/db/schema";
+import { ensureSeeded } from "@/db/seed";
 import { eq } from "drizzle-orm";
-import { getSessionSalon, SESSION_COOKIE, BRANCH_COOKIE, clean } from "@/lib/tenant";
+import { getSessionSalon, SESSION_COOKIE, BRANCH_COOKIE, ADMIN_COOKIE, clean } from "@/lib/tenant";
 
 export const dynamic = "force-dynamic";
 
@@ -27,6 +28,7 @@ export async function GET() {
 }
 
 export async function POST(req: Request) {
+  await ensureSeeded();
   const body = (await req.json().catch(() => ({}))) as { slug?: string; branch?: string };
   const jar = await cookies();
 
@@ -39,6 +41,14 @@ export async function POST(req: Request) {
       path: "/",
       maxAge: 60 * 60 * 24 * 30,
     });
+    if (jar.get(ADMIN_COOKIE)?.value) {
+      jar.set(ADMIN_COOKIE, rows[0].id, {
+        httpOnly: true,
+        sameSite: "lax",
+        path: "/",
+        maxAge: 60 * 60 * 12,
+      });
+    }
     // Salon badla to branch us salon ke hisaab se reset
     const branches = (rows[0].branches ?? []) as string[];
     const nextBranch = clean(body.branch, 40);

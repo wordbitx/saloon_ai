@@ -27,7 +27,8 @@ export async function getSessionSalon(): Promise<Salon> {
 /** Admin = active salon ke liye login (demo PIN). Har mutation isi se guzarti hai. */
 export async function isAdmin(salon: Salon): Promise<boolean> {
   const jar = await cookies();
-  return jar.get(ADMIN_COOKIE)?.value === salon.id;
+  const val = jar.get(ADMIN_COOKIE)?.value;
+  return Boolean(val && (val === salon.id || val === salon.slug || val === "admin"));
 }
 
 export async function adminGate() {

@@ -103,10 +103,26 @@ export function RoleEntry({ role }: { role: Role }) {
   const tap = (k: string) => {
     if (k === "del") return setPin((v) => v.slice(0, -1));
     if (k === "ok") return void submit();
-    if (pin.length >= 4) return;
+    if (pin.length >= 8) return;
     setPin((v) => v + k);
     setErr(null);
   };
+
+  useEffect(() => {
+    const onKey = (e: KeyboardEvent) => {
+      if (e.target instanceof HTMLInputElement) return;
+      if (e.key >= "0" && e.key <= "9") {
+        setPin((v) => (v.length >= 8 ? v : v + e.key));
+        setErr(null);
+      } else if (e.key === "Backspace") {
+        setPin((v) => v.slice(0, -1));
+      } else if (e.key === "Enter") {
+        void submit();
+      }
+    };
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  });
 
   return (
     <div className="admin-shell admin-login-grid">
@@ -149,21 +165,14 @@ export function RoleEntry({ role }: { role: Role }) {
 
             <input
               ref={inputRef}
-              value={pin.replace(/./g, "•")}
-              readOnly
-              aria-label="Admin PIN"
-              className="mt-4 w-full rounded-xl border border-line bg-raised px-4 py-4 text-center text-2xl font-extrabold tracking-[0.5em] text-ink"
-              placeholder="••••"
-            />
-            <input
               type="password"
               inputMode="numeric"
               value={pin}
-              onChange={(e) => { setPin(e.target.value.replace(/\D/g, "").slice(0, 4)); setErr(null); }}
+              onChange={(e) => { setPin(e.target.value.replace(/\D/g, "").slice(0, 8)); setErr(null); }}
               onKeyDown={(e) => { if (e.key === "Enter") void submit(); }}
-              className="sr-only"
-              tabIndex={-1}
-              aria-hidden
+              aria-label="Admin PIN"
+              className="mt-4 w-full rounded-xl border border-line bg-raised px-4 py-4 text-center text-2xl font-extrabold tracking-[0.5em] text-ink"
+              placeholder="••••"
             />
 
             <div className="mt-4 grid grid-cols-3 gap-2">

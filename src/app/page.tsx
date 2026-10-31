@@ -321,13 +321,18 @@ export default function LandingPage() {
                 </div>
               ))}
             </div>
-            <p className="mt-3 text-[11.5px] text-mut">WordbitX agency ya freelancer nahi — aik software company aur brand hai.</p>
+            <p className="mt-3 text-[11.5px] text-mut">
+              <a href="http://wordbitx.pk" target="_blank" className="font-bold text-accent hover:underline">
+                WordbitX (wordbitx.pk)
+              </a>{" "}
+              agency ya freelancer nahi — aik software company aur brand hai.
+            </p>
           </Reveal>
 
           <Reveal delay={120}>
             <div className="card overflow-hidden">
               <div className="flex items-center justify-between border-b border-line px-5 py-3.5">
-                <p className="text-[13px] font-bold">Aaj ki summary — Glow Salon</p>
+                <p className="text-[13px] font-bold">Aaj ki summary — Elan Beauty</p>
               </div>
               <div className="grid grid-cols-3 divide-x divide-line border-b border-line">
                 {[
@@ -366,8 +371,8 @@ export default function LandingPage() {
       {/* ── Pricing ─────────────────────────────────────────────────────── */}
       <section id="pricing" className="site-container home-section scroll-mt-24">
         <Reveal className="text-center">
-          <p className="text-[11px] font-extrabold uppercase tracking-[0.16em] text-accent">Pricing — confirmed</p>
-          <h2 className="mt-2 text-3xl font-extrabold sm:text-4xl">Seedha hisaab, koi chhupi fees nahi</h2>
+          <p className="text-[11px] font-extrabold uppercase tracking-[0.16em] text-accent">Executive Salon Plans · by WordbitX</p>
+          <h2 className="mt-2 text-3xl font-extrabold sm:text-4xl">Transparent Pricing — Tailored for Modern Salons</h2>
           <div className="mt-5 inline-flex rounded-lg border border-line bg-card p-1" role="group" aria-label="Currency">
             {(["PKR", "USD"] as const).map((c) => (
               <button
@@ -387,53 +392,58 @@ export default function LandingPage() {
         </Reveal>
 
         <Reveal group className="mt-9 grid gap-5 lg:grid-cols-3">
-          {PLANS.map((p) => (
-            <div
-              key={p.name}
-              className={cn(
-                "reveal-item card relative flex flex-col p-6",
-                p.popular && "border-brand",
-              )}
-            >
-              {p.popular && (
-                <span className="absolute -top-3 left-1/2 -translate-x-1/2 rounded-md bg-brand px-3 py-1 text-[10px] font-extrabold uppercase tracking-wider text-white">
-                  Most Popular
-                </span>
-              )}
-              <h3 className="text-lg font-extrabold">{p.name}</h3>
-              <p className="text-[12px] font-semibold text-mut">{p.tagline}</p>
-              <p className="mt-4 text-4xl font-extrabold tracking-tight">
-                {currency === "PKR" ? (
-                  <>
-                    <span className="text-base font-bold text-mut">PKR </span>
-                    {p.pkr}
-                  </>
-                ) : (
-                  <>${p.usd}</>
+          {PLANS.map((p) => {
+            const waHref = `https://wa.me/923251888841?text=${encodeURIComponent(
+              `Assalam o Alaikum! Mujhe Elan Beauty (${p.name} Plan — PKR ${p.pkr}/month) ke baray mein details chahiye.`,
+            )}`;
+            return (
+              <div
+                key={p.name}
+                className={cn(
+                  "reveal-item card relative flex flex-col p-6 transition-transform duration-200 hover:-translate-y-1",
+                  p.popular ? "border-2 border-brand shadow-lg" : "border-line hover:border-brand/50",
                 )}
-                <span className="text-sm font-semibold text-mut">/month</span>
-              </p>
-              <ul className="mt-5 grid flex-1 gap-2.5">
-                {p.base && (
-                  <li className="flex items-start gap-2 text-[13px] font-bold text-mint">
-                    <Check size={14} className="mt-0.5 shrink-0 text-accent" /> {p.base} +
-                  </li>
-                )}
-                {p.features.map((f) => (
-                  <li key={f} className="flex items-start gap-2 text-[13px]">
-                    <Check size={14} className="mt-0.5 shrink-0 text-accent" /> {f}
-                  </li>
-                ))}
-              </ul>
-              <RippleButton
-                href={`mailto:info@wordbitx.pk?subject=Missed%20Booking%20Recovery%20—%20${p.name}%20plan%20enquiry`}
-                variant={p.popular ? "brand" : "ghost"}
-                className="mt-6 w-full"
               >
-                <Mail size={14} /> {p.name} ke liye enquiry
-              </RippleButton>
-            </div>
-          ))}
+                {p.popular && (
+                  <span className="absolute -top-3 left-1/2 -translate-x-1/2 rounded-md bg-brand px-3 py-1 text-[10px] font-extrabold uppercase tracking-wider text-white">
+                    Most Popular
+                  </span>
+                )}
+                <h3 className="text-lg font-extrabold">{p.name}</h3>
+                <p className="text-[12px] font-semibold text-mut">{p.tagline}</p>
+                <p className="mt-4 text-4xl font-extrabold tracking-tight">
+                  {currency === "PKR" ? (
+                    <>
+                      <span className="text-base font-bold text-mut">PKR </span>
+                      {p.pkr}
+                    </>
+                  ) : (
+                    <>${p.usd}</>
+                  )}
+                  <span className="text-sm font-semibold text-mut">/month</span>
+                </p>
+                <ul className="mt-5 grid flex-1 gap-2.5">
+                  {p.base && (
+                    <li className="flex items-start gap-2 text-[13px] font-bold text-mint">
+                      <Check size={14} className="mt-0.5 shrink-0 text-accent" /> {p.base} +
+                    </li>
+                  )}
+                  {p.features.map((f) => (
+                    <li key={f} className="flex items-start gap-2 text-[13px]">
+                      <Check size={14} className="mt-0.5 shrink-0 text-accent" /> {f}
+                    </li>
+                  ))}
+                </ul>
+                <RippleButton
+                  href={waHref}
+                  variant={p.popular ? "brand" : "ghost"}
+                  className="mt-6 w-full"
+                >
+                  <MessageCircle size={14} /> {p.popular ? "Contact on WhatsApp · +92 325 1888841" : `WhatsApp par rabta — ${p.name}`}
+                </RippleButton>
+              </div>
+            );
+          })}
         </Reveal>
 
         <Reveal className="mt-6 grid gap-3 sm:grid-cols-2">
@@ -441,15 +451,23 @@ export default function LandingPage() {
             <Settings2 size={16} className="mt-0.5 shrink-0 text-accent" />
             <p>
               <b>Optional setup: PKR 5,000 / $29</b>
-              <span className="text-mut"> — services, prices aur FAQs WordbitX khud enter karega.</span>
+              <span className="text-mut">
+                {" "}— services, prices aur FAQs{" "}
+                <a href="http://wordbitx.pk" target="_blank" className="font-bold text-accent hover:underline">
+                  WordbitX (wordbitx.pk)
+                </a>{" "}
+                khud enter karega.
+              </span>
             </p>
           </div>
           <div className="card flex items-start gap-3 p-4 text-[13px]">
-            <Mail size={16} className="mt-0.5 shrink-0 text-accent" />
+            <MessageCircle size={16} className="mt-0.5 shrink-0 text-accent" />
             <p>
-              <b>Phase 1 mein checkout nahi</b>
-              <span className="text-mut"> — sale enquiry par hoti hai: </span>
-              <a href="mailto:info@wordbitx.pk" className="font-bold text-accent hover:underline">info@wordbitx.pk</a>
+              <b>Direct WhatsApp Contact</b>
+              <span className="text-mut"> — package activate karne ke liye rabta karein: </span>
+              <a href="https://wa.me/923251888841" target="_blank" className="font-bold text-accent hover:underline">
+                +92 325 1888841
+              </a>
             </p>
           </div>
         </Reveal>
@@ -540,13 +558,13 @@ export default function LandingPage() {
               <RippleButton href="/demo">
                 <Play size={15} /> Abhi demo chalayein
               </RippleButton>
-              <RippleButton href="mailto:info@wordbitx.pk?subject=Missed%20Booking%20Recovery%20enquiry" variant="ghost">
-                <Mail size={15} /> info@wordbitx.pk
+              <RippleButton href="https://wa.me/923251888841" variant="ghost">
+                <MessageCircle size={15} /> WhatsApp +92 325 1888841
               </RippleButton>
             </div>
             <div className="mt-6 flex flex-wrap justify-center gap-x-6 gap-y-2 text-[12px] font-semibold text-mut">
-              <span className="inline-flex items-center gap-1.5"><Phone size={12} className="text-accent" /> PK +92 325 1888841</span>
-              <span className="inline-flex items-center gap-1.5"><Phone size={12} className="text-accent" /> USA +1 (929) 619-7699</span>
+              <a href="https://wa.me/923251888841" target="_blank" className="inline-flex items-center gap-1.5 hover:text-accent"><Phone size={12} className="text-accent" /> PK +92 325 1888841</a>
+              <a href="http://wordbitx.pk" target="_blank" className="inline-flex items-center gap-1.5 font-bold text-accent hover:underline">wordbitx.pk</a>
               <span className="inline-flex items-center gap-1.5"><Clock size={12} className="text-accent" /> Setup: 24 ghante</span>
             </div>
           </Reveal>

@@ -60,17 +60,9 @@ export function SiteHeader() {
 
   return (
     <>
-      <div className="site-demo-banner">
-        <div className="site-container flex items-center justify-center gap-2">
-          <span className="site-phase-label">PHASE 01</span>
-          <span className="inline-flex items-center gap-1.5"><FlaskConical size={11} /> Interactive demo</span>
-          <span className="site-banner-divider" aria-hidden />
-          <span className="site-banner-extra">24h setup · Lahore</span>
-        </div>
-      </div>
       <header className="site-header">
         <div className="site-container site-header-inner">
-          <Link href="/" aria-label="WordbitX home" onClick={() => setOpen(false)} className="site-logo-link">
+          <Link href="/" aria-label="Elan Beauty by WordbitX home" onClick={() => setOpen(false)} className="site-logo-link">
             <Logo sub />
           </Link>
           <nav className="site-desktop-nav" aria-label="Main navigation">
@@ -85,7 +77,7 @@ export function SiteHeader() {
             })}
           </nav>
           <div className="site-header-actions">
-            <div className="site-theme-control"><ThemeToggle compact /></div>
+            <div className="site-theme-control"><ThemeToggle /></div>
             <button
               ref={triggerRef}
               type="button"
@@ -167,9 +159,9 @@ export function SiteFooter() {
         </div>
         <div className="site-footer-links">
           <h3>GET IN TOUCH</h3>
-          <a href="https://wordbitx.pk" target="_blank" rel="noreferrer"><Globe size={12} /> wordbitx.pk</a>
+          <a href="http://wordbitx.pk" target="_blank"><Globe size={12} /> wordbitx.pk</a>
+          <a href="https://wa.me/923251888841" target="_blank"><Phone size={12} /> WhatsApp +92 325 1888841</a>
           <a href="mailto:info@wordbitx.pk"><Mail size={12} /> info@wordbitx.pk</a>
-          <a href="tel:+923251888841"><Phone size={12} /> PK +92 325 1888841</a>
           <a href="tel:+19296197699"><Phone size={12} /> USA +1 (929) 619-7699</a>
         </div>
         <div className="site-footer-links site-footer-roadmap">
@@ -179,7 +171,12 @@ export function SiteFooter() {
         </div>
       </div>
       <div className="site-container site-footer-bottom">
-        <p>© {new Date().getFullYear()} WordbitX · Missed Booking Recovery</p>
+        <p>
+          © {new Date().getFullYear()} Elan Beauty · Powered by{" "}
+          <a href="http://wordbitx.pk" target="_blank" className="font-bold text-accent hover:underline">
+            WordbitX (wordbitx.pk)
+          </a>
+        </p>
         <p>Made for salons. No guarantees. No spam.</p>
         <span>LAHORE, PAKISTAN <span className="text-accent">↗</span></span>
       </div>

@@ -17,6 +17,15 @@ export interface ShelfProduct {
   imageUrl?: string | null;
 }
 
+const FALLBACK_PRODUCTS: ShelfProduct[] = [
+  { id: "00000000-0000-4000-8000-000000000301", imageUrl: "/images/products/keratin-serum.jpg", name: "Keratin Repair Serum", description: "Color ke baad frizz kam kare — 100ml.", pricePkr: 2800, category: "Haircare", stock: 14, emoji: "💧" },
+  { id: "00000000-0000-4000-8000-000000000302", imageUrl: "/images/products/silk-hair-mask.jpg", name: "Silk Hair Mask", description: "Weekly deep mask, dry ends ke liye.", pricePkr: 2200, category: "Haircare", stock: 9, emoji: "🎀" },
+  { id: "00000000-0000-4000-8000-000000000303", imageUrl: "/images/products/after-color-shampoo.jpg", name: "After-Color Shampoo", description: "Color lock shampoo, sulfate-free.", pricePkr: 1650, category: "Haircare", stock: 18, emoji: "🧴" },
+  { id: "00000000-0000-4000-8000-000000000304", imageUrl: "/images/products/hydra-glow-kit.jpg", name: "Hydra Glow Facial Kit", description: "Ghar par 3-step glow — salon facial ke baad.", pricePkr: 3400, category: "Skin", stock: 7, emoji: "✨" },
+  { id: "00000000-0000-4000-8000-000000000305", imageUrl: "/images/products/nail-strengthener.jpg", name: "Nail Strengthener", description: "Gel ke baad weak nails ke liye.", pricePkr: 890, category: "Nails", stock: 22, emoji: "💅" },
+  { id: "00000000-0000-4000-8000-000000000306", imageUrl: "/images/products/bridal-mehndi-set.jpg", name: "Bridal Mehndi Cone Set", description: "4 cones + aftercare oil. Shaadi season.", pricePkr: 1200, category: "Bridal", stock: 11, emoji: "🌿" },
+];
+
 function ProductImage({ p, className }: { p: ShelfProduct; className?: string }) {
   const [broken, setBroken] = useState(false);
   if (!p.imageUrl || broken) {
@@ -36,9 +45,9 @@ export function ProductCatalog({
   limit?: number;
   heading?: boolean;
 }) {
-  const [products, setProducts] = useState<ShelfProduct[]>([]);
-  const [salon, setSalon] = useState("");
-  const [loading, setLoading] = useState(true);
+  const [products, setProducts] = useState<ShelfProduct[]>(FALLBACK_PRODUCTS);
+  const [salon, setSalon] = useState("Glow Salon");
+  const [loading, setLoading] = useState(false);
   const [pick, setPick] = useState<ShelfProduct | null>(null);
   const [qty, setQty] = useState(1);
   const [name, setName] = useState("");
