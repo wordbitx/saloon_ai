@@ -146,7 +146,7 @@ export function RoleEntry({ role }: { role: Role }) {
       <main className="admin-login-panel">
         <div className="admin-login-panel-head">
           <div>
-            <p className="text-[13px] font-extrabold">WordbitX · {role === "admin" ? "Admin" : role === "manager" ? "Manager" : "Reception"}</p>
+            <p className="text-[13px] font-extrabold">Elan Beauty · {role === "admin" ? "Admin" : role === "manager" ? "Manager" : "Reception"}</p>
             <p className="text-[10.5px] text-mut">Secure entry · {c.eyebrow.toLowerCase()}</p>
           </div>
           <ThemeToggle compact />
@@ -207,7 +207,7 @@ export function RoleEntry({ role }: { role: Role }) {
               Sirf Official WhatsApp Cloud API (Phase 2) · koi spam nahi.
             </p>
             <p className="mt-3 flex items-center justify-center gap-1.5 text-[9.5px] font-bold uppercase tracking-wider text-mut">
-              <Building2 size={11} className="text-accent" /> WordbitX · Lahore, Pakistan
+              <Building2 size={11} className="text-accent" /> Elan Beauty · Lahore, Pakistan
             </p>
           </>
         )}

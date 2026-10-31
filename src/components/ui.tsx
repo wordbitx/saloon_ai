@@ -10,7 +10,7 @@ import {
   type MouseEvent as ReactMouseEvent,
 } from "react";
 import Link from "next/link";
-import { Moon, Sun, Monitor } from "lucide-react";
+import { Moon, Sun, Monitor, ChevronDown, Check } from "lucide-react";
 
 export function cn(...parts: (string | false | null | undefined)[]) {
   return parts.filter(Boolean).join(" ");
@@ -208,7 +208,7 @@ export function CountUp({
 /* ── Ticker (hover par pause) ────────────────────────────────────────────── */
 export function Ticker({ items }: { items: ReactNode[] }) {
   return (
-    <div className="ticker" aria-label="Recovered bookings ticker ( data)">
+    <div className="ticker" aria-label="Recovered bookings ticker (sample data)">
       <div className="ticker-track py-1">
         {[0, 1].map((dup) => (
           <div key={dup} className="flex gap-3" aria-hidden={dup === 1}>
@@ -224,8 +224,9 @@ export function Ticker({ items }: { items: ReactNode[] }) {
   );
 }
 
-/* ── Theme: Dark / Light / System (live) ─────────────────────────────────── */
-type ThemeMode = "dark" | "light" | "system";
+/* ── Theme: Light / Dark / System Dropdown ───────────────────────────────── */
+type ThemeMode = "light" | "dark" | "system";
+const THEME_STORAGE_KEY = "elan-theme";
 
 function applyTheme(mode: ThemeMode) {
   const resolved =
@@ -239,49 +240,99 @@ function applyTheme(mode: ThemeMode) {
 
 export function ThemeToggle({ compact = false }: { compact?: boolean }) {
   const [mode, setMode] = useState<ThemeMode>("light");
+  const [open, setOpen] = useState(false);
+  const wrapRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    const saved = (localStorage.getItem("wbx-theme") as ThemeMode | null) ?? "light";
+    const saved = (localStorage.getItem(THEME_STORAGE_KEY) as ThemeMode | null) ?? "light";
     setMode(saved);
     applyTheme(saved);
     const mq = window.matchMedia("(prefers-color-scheme: light)");
     const onChange = () => {
-      if ((localStorage.getItem("wbx-theme") as ThemeMode | null) === "system") applyTheme("system");
+      if ((localStorage.getItem(THEME_STORAGE_KEY) as ThemeMode | null) === "system") applyTheme("system");
     };
     mq.addEventListener("change", onChange);
     return () => mq.removeEventListener("change", onChange);
   }, []);
 
+  useEffect(() => {
+    if (!open) return;
+    const onPointerDown = (e: MouseEvent) => {
+      if (wrapRef.current && !wrapRef.current.contains(e.target as Node)) {
+        setOpen(false);
+      }
+    };
+    const onKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setOpen(false);
+    };
+    document.addEventListener("mousedown", onPointerDown);
+    document.addEventListener("keydown", onKeyDown);
+    return () => {
+      document.removeEventListener("mousedown", onPointerDown);
+      document.removeEventListener("keydown", onKeyDown);
+    };
+  }, [open]);
+
   const pick = (m: ThemeMode) => {
     setMode(m);
-    localStorage.setItem("wbx-theme", m);
+    localStorage.setItem(THEME_STORAGE_KEY, m);
     applyTheme(m);
+    setOpen(false);
   };
 
   const opts: { key: ThemeMode; icon: ReactNode; label: string }[] = [
-    { key: "dark", icon: <Moon size={13} />, label: "Dark" },
-    { key: "light", icon: <Sun size={13} />, label: "Light" },
-    { key: "system", icon: <Monitor size={13} />, label: "System" },
+    { key: "light", icon: <Sun size={14} />, label: "Light" },
+    { key: "dark", icon: <Moon size={14} />, label: "Dark" },
+    { key: "system", icon: <Monitor size={14} />, label: "System" },
   ];
 
+  const activeOpt = opts.find((o) => o.key === mode) ?? opts[0];
+
   return (
-    <div className="flex items-center rounded-lg border border-line bg-card p-0.5" role="group" aria-label="Theme switcher">
-      {opts.map((o) => (
-        <button
-          key={o.key}
-          type="button"
-          aria-pressed={mode === o.key}
-          title={`${o.label} theme`}
-          onClick={() => pick(o.key)}
-          className={cn(
-            "flex items-center gap-1 rounded-md px-2 py-1 text-[11px] font-semibold transition-colors",
-            mode === o.key ? "bg-brand text-white" : "text-mut hover:text-ink",
-          )}
+    <div ref={wrapRef} className="relative inline-block">
+      <button
+        type="button"
+        onClick={() => setOpen((v) => !v)}
+        aria-haspopup="menu"
+        aria-expanded={open}
+        aria-label="Theme switcher"
+        title={`Theme: ${activeOpt.label}`}
+        className="flex items-center gap-1.5 rounded-lg border border-line bg-card px-2.5 py-1.5 text-[11.5px] font-semibold text-ink transition-colors hover:border-brand hover:bg-raised"
+      >
+        <span className="text-accent">{activeOpt.icon}</span>
+        {!compact && <span className="hidden sm:inline">{activeOpt.label}</span>}
+        <ChevronDown size={12} className={cn("text-mut transition-transform", open && "rotate-180")} />
+      </button>
+
+      {open && (
+        <div
+          role="menu"
+          aria-label="Select theme"
+          className="absolute right-0 top-[calc(100%+6px)] z-[120] min-w-[136px] rounded-xl border border-line bg-card p-1 shadow-xl"
         >
-          {o.icon}
-          {!compact && <span className="hidden sm:inline">{o.label}</span>}
-        </button>
-      ))}
+          {opts.map((o) => {
+            const isSelected = mode === o.key;
+            return (
+              <button
+                key={o.key}
+                type="button"
+                role="menuitemradio"
+                aria-checked={isSelected}
+                title={`${o.label} theme`}
+                onClick={() => pick(o.key)}
+                className={cn(
+                  "flex w-full items-center gap-2 rounded-lg px-2.5 py-2 text-left text-[12px] font-semibold transition-colors",
+                  isSelected ? "bg-brand-soft text-accent" : "text-ink hover:bg-raised",
+                )}
+              >
+                <span className={isSelected ? "text-accent" : "text-mut"}>{o.icon}</span>
+                <span className="flex-1">{o.label}</span>
+                {isSelected && <Check size={13} className="text-accent" />}
+              </button>
+            );
+          })}
+        </div>
+      )}
     </div>
   );
 }
@@ -303,7 +354,7 @@ export function ScrollProgress() {
   return (
     <div
       ref={ref}
-      className="absolute inset-x-0 bottom-[-2px] h-[2px] origin-left bg-brand"
+      className="absolute inset-x-0 bottom-[-1px] h-[2px] origin-left bg-brand"
       style={{ transform: "scaleX(0)" }}
       aria-hidden
     />
@@ -335,24 +386,18 @@ export function PhoneTilt({ children, className }: { children: ReactNode; classN
   );
 }
 
-/* ── Brand logo ──────────────────────────────────────────────────────────── */
+/* ── Brand logo: Elan Beauty ─────────────────────────────────────────────── */
 export function Logo({ sub = false }: { sub?: boolean }) {
   return (
     <span className="flex items-center gap-2.5">
-      <span className="grid h-8 w-8 shrink-0 place-items-center rounded-lg bg-brand">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden>
-          <path
-            d="M12 3C7 3 3 6.6 3 11c0 2.2 1 4.2 2.7 5.6L5 21l4.3-1.6c.9.2 1.8.3 2.7.3 5 0 9-3.6 9-8.7S17 3 12 3Z"
-            fill="#fff"
-          />
-          <path d="m7.5 8.5 1.6 5 1.9-3.6 1.9 3.6 1.6-5" stroke="#1CA830" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
-        </svg>
+      <span className="grid h-8 w-8 shrink-0 place-items-center rounded-lg bg-brand text-white font-extrabold text-[15px] shadow-xs">
+        E
       </span>
       <span className="leading-none">
         <span className="block text-[15px] font-extrabold tracking-tight text-ink">
-          Wordbit<span className="text-accent">X</span>
+          Elan <span className="text-accent">Beauty</span>
         </span>
-        {sub && <span className="mt-0.5 block text-[9.5px] font-semibold uppercase tracking-[0.14em] text-mut">Missed Booking Recovery</span>}
+        {sub && <span className="mt-0.5 block text-[9.5px] font-semibold uppercase tracking-[0.14em] text-mut">Salon & Studio</span>}
       </span>
     </span>
   );

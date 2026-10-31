@@ -332,7 +332,7 @@ export default function DemoPage() {
             void refreshSummary();
           }
         } else if (key === "review") {
-          push({ from: "cust", text: "Service ho gayi, bohat shukriya! 💚" });
+          push({ from: "cust", text: "Service ho gayi, bohat shukriya! 💙" });
           setTyping(true);
           const rr = await fetch("/api/review", { method: "POST", headers: { "Content-Type": "application/json" }, body: "{}" });
           const rd = await rr.json();
@@ -500,7 +500,7 @@ export default function DemoPage() {
         <div className="card mx-auto flex w-full max-w-xl flex-col overflow-hidden">
           <div className="flex items-center gap-2.5 border-b border-line bg-raised px-4 py-3">
             <span className="grid h-9 w-9 place-items-center rounded-full bg-brand text-sm font-extrabold text-white">
-              {(settings?.salon.name ?? "G").charAt(0)}
+              {(settings?.salon.name ?? "E").charAt(0)}
             </span>
             <div className="min-w-0">
               <p className="truncate text-[13.5px] font-bold">{settings?.salon.name ?? "Salon"}</p>

@@ -1,6 +1,6 @@
 @import "tailwindcss";
 
-/* ── WordbitX brand tokens — FLAT, koi gradient nahi ─────────────────────── */
+/* ── Elan Beauty brand tokens — Pure White + Brandbees Navy Blue (#3457a1) ── */
 @theme inline {
   --color-page: var(--page);
   --color-card: var(--card);
@@ -12,7 +12,7 @@
   --color-brand-soft: var(--brand-soft);
   --color-mint: var(--mint);
   --color-accent: var(--accent);
-  --color-navy: #052767;
+  --color-navy: #2c4a88;
   --color-bubble: var(--bubble);
   --color-bubble-ink: var(--bubble-ink);
   --color-owner-bubble: var(--owner-bubble);
@@ -21,36 +21,36 @@
 
 :root,
 [data-theme="light"] {
-  --page: #f3f5fa;
+  --page: #ffffff;
   --card: #ffffff;
-  --raised: #edf1f8;
-  --ink: #081c45;
-  --mut: #51617f;
-  --line: #dde4f0;
-  --brand: #1ca830;
-  --brand-soft: rgba(28, 168, 48, 0.1);
-  --mint: #14532d;
-  --accent: #0e7a21;
-  --bubble: #e3f5e7;
-  --bubble-ink: #0c3a17;
-  --owner-bubble: #052767;
+  --raised: #f5f8fc;
+  --ink: #0f172a;
+  --mut: #526077;
+  --line: #e3e8f2;
+  --brand: #3457a1;
+  --brand-soft: #ecf1fb;
+  --mint: #2c4a88;
+  --accent: #3457a1;
+  --bubble: #ecf1fb;
+  --bubble-ink: #172b54;
+  --owner-bubble: #1e3a7a;
   color-scheme: light;
 }
 
 [data-theme="dark"] {
-  --page: #030814;
-  --card: #050d21;
-  --raised: #071531;
+  --page: #070d19;
+  --card: #0c1526;
+  --raised: #111d35;
   --ink: #edf2fb;
   --mut: #8b9cbd;
-  --line: #10203f;
-  --brand: #1ca830;
-  --brand-soft: rgba(28, 168, 48, 0.14);
-  --mint: #9fdda8;
-  --accent: #61d171;
-  --bubble: #0a2b13;
-  --bubble-ink: #d9f3dd;
-  --owner-bubble: #052767;
+  --line: #1c2c4c;
+  --brand: #3457a1;
+  --brand-soft: rgba(52, 87, 161, 0.2);
+  --mint: #b8cdf8;
+  --accent: #7da2f0;
+  --bubble: #122244;
+  --bubble-ink: #e2ecff;
+  --owner-bubble: #1e3a7a;
   color-scheme: dark;
 }
 
@@ -80,6 +80,7 @@ h1, h2, h3, h4 {
   background: var(--card);
   border: 1px solid var(--line);
   border-radius: 14px;
+  box-shadow: 0 2px 12px rgba(15, 23, 42, 0.04);
 }
 
 .input {
@@ -127,7 +128,7 @@ h1, h2, h3, h4 {
   font-size: 0.875rem;
   transition: background 0.15s ease, transform 0.12s ease;
 }
-.btn-brand:hover { background: #21bf39; }
+.btn-brand:hover { background: #2c4a88; }
 .btn-brand:active { transform: scale(0.97); }
 .btn-brand:disabled { opacity: 0.5; pointer-events: none; }
 

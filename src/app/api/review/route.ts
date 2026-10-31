@@ -33,8 +33,8 @@ export async function POST(req: Request) {
 
   const link = salon.reviewUrl?.trim() || null;
   const message = link
-    ? `Shukriya ${customerName}! 💚 Aap ka ${serviceName} complete ho gaya — umeed hai experience acha raha. Agar pasand aaya to Google par 1 minute ka review zaroor karein:\n${link}`
-    : `Shukriya ${customerName}! 💚 Aap ka ${serviceName} complete ho gaya — umeed hai experience acha raha. Agar pasand aaya to Google par review zaroor karein:\n[Google review link — TODO (owner decision): Settings → Review URL mein apna link add karein]`;
+    ? `Shukriya ${customerName}! 💙 Aap ka ${serviceName} complete ho gaya — umeed hai experience acha raha. Agar pasand aaya to Google par 1 minute ka review zaroor karein:\n${link}`
+    : `Shukriya ${customerName}! 💙 Aap ka ${serviceName} complete ho gaya — umeed hai experience acha raha. Agar pasand aaya to Google par review zaroor karein:\n[Google review link — TODO (owner decision): Settings → Review URL mein apna link add karein]`;
 
   const all = await db.select().from(reviewRequests).where(eq(reviewRequests.salonId, salon.id));
   return Response.json({ message, reviewUrlConfigured: Boolean(link), count: all.length });

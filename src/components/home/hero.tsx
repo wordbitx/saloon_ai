@@ -10,7 +10,7 @@ const CHAT: { from: "customer" | "assistant"; text: string }[] = [
   { from: "customer", text: "Haan please" },
   { from: "assistant", text: "Zaroor! Aap ka naam bata dein?" },
   { from: "customer", text: "Mahnoor" },
-  { from: "assistant", text: "Ho gaya ✓ Facial — kal 5:00 PM. Reminder 2 ghante pehle isi chat par aayega. 💚" },
+  { from: "assistant", text: "Ho gaya ✓ Facial — kal 5:00 PM. Reminder 2 ghante pehle isi chat par aayega. 💙" },
 ];
 
 function PhonePreview() {
@@ -100,9 +100,9 @@ function PhonePreview() {
           </div>
           <div className="hero-phone-screen">
             <div className="hero-phone-header">
-              <span className="hero-salon-avatar">G<span /></span>
+              <span className="hero-salon-avatar">E<span /></span>
               <div className="min-w-0 flex-1">
-                <p>Glow Salon, Lahore</p>
+                <p>Elan Beauty, Lahore</p>
                 <span><span className="h-1 w-1 rounded-full bg-accent" /> Booking assistant · demo</span>
               </div>
             </div>
@@ -163,7 +163,7 @@ export function LandingHero() {
         <p className="home-hero-helper"><ShieldCheck size={12} /> Interactive demo · No sign-up · No live WhatsApp</p>
 
         <Reveal className="home-hero-snapshot" delay={180}>
-          <div className="home-snapshot-heading"><span>TODAY · GLOW SALON</span><span>Aaj ki recovery</span></div>
+          <div className="home-snapshot-heading"><span>TODAY · ELAN BEAUTY</span><span>Aaj ki recovery</span></div>
           <div className="home-hero-stats">
             {[
               { n: 3, label: "Bookings bachi", icon: CalendarCheck },

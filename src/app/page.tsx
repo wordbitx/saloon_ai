@@ -112,7 +112,7 @@ const FAQS = [
   },
   {
     q: "Setup kitni dair mein hota hai?",
-    a: "24 ghante mein setup — WordbitX ki poori team onboarding karti hai. Optional setup service (PKR 5,000 / $29) mein services, prices aur FAQs hum khud enter karte hain.",
+    a: "24 ghante mein setup — Elan Beauty ki poori team onboarding karti hai. Optional setup service (PKR 5,000 / $29) mein services, prices aur FAQs hum khud enter karte hain.",
   },
   {
     q: "Mere salon ka data kaun dekh sakta hai?",
@@ -321,13 +321,13 @@ export default function LandingPage() {
                 </div>
               ))}
             </div>
-            <p className="mt-3 text-[11.5px] text-mut">WordbitX agency ya freelancer nahi — aik software company aur brand hai.</p>
+            <p className="mt-3 text-[11.5px] text-mut">Elan Beauty — salons ke liye banaya gaya complete booking &amp; recovery system.</p>
           </Reveal>
 
           <Reveal delay={120}>
             <div className="card overflow-hidden">
               <div className="flex items-center justify-between border-b border-line px-5 py-3.5">
-                <p className="text-[13px] font-bold">Aaj ki summary — Glow Salon</p>
+                <p className="text-[13px] font-bold">Aaj ki summary — Elan Beauty</p>
               </div>
               <div className="grid grid-cols-3 divide-x divide-line border-b border-line">
                 {[
@@ -426,7 +426,7 @@ export default function LandingPage() {
                 ))}
               </ul>
               <RippleButton
-                href={`mailto:info@wordbitx.pk?subject=Missed%20Booking%20Recovery%20—%20${p.name}%20plan%20enquiry`}
+                href={`mailto:info@elanbeauty.pk?subject=Elan%20Beauty%20—%20${p.name}%20plan%20enquiry`}
                 variant={p.popular ? "brand" : "ghost"}
                 className="mt-6 w-full"
               >
@@ -441,7 +441,7 @@ export default function LandingPage() {
             <Settings2 size={16} className="mt-0.5 shrink-0 text-accent" />
             <p>
               <b>Optional setup: PKR 5,000 / $29</b>
-              <span className="text-mut"> — services, prices aur FAQs WordbitX khud enter karega.</span>
+              <span className="text-mut"> — services, prices aur FAQs Elan Beauty team khud enter karegi.</span>
             </p>
           </div>
           <div className="card flex items-start gap-3 p-4 text-[13px]">
@@ -449,7 +449,7 @@ export default function LandingPage() {
             <p>
               <b>Phase 1 mein checkout nahi</b>
               <span className="text-mut"> — sale enquiry par hoti hai: </span>
-              <a href="mailto:info@wordbitx.pk" className="font-bold text-accent hover:underline">info@wordbitx.pk</a>
+              <a href="mailto:info@elanbeauty.pk" className="font-bold text-accent hover:underline">info@elanbeauty.pk</a>
             </p>
           </div>
         </Reveal>
@@ -540,8 +540,8 @@ export default function LandingPage() {
               <RippleButton href="/demo">
                 <Play size={15} /> Abhi demo chalayein
               </RippleButton>
-              <RippleButton href="mailto:info@wordbitx.pk?subject=Missed%20Booking%20Recovery%20enquiry" variant="ghost">
-                <Mail size={15} /> info@wordbitx.pk
+              <RippleButton href="mailto:info@elanbeauty.pk?subject=Elan%20Beauty%20enquiry" variant="ghost">
+                <Mail size={15} /> info@elanbeauty.pk
               </RippleButton>
             </div>
             <div className="mt-6 flex flex-wrap justify-center gap-x-6 gap-y-2 text-[12px] font-semibold text-mut">

@@ -46,7 +46,7 @@ export function ProductCatalog({
   heading?: boolean;
 }) {
   const [products, setProducts] = useState<ShelfProduct[]>(FALLBACK_PRODUCTS);
-  const [salon, setSalon] = useState("Glow Salon");
+  const [salon, setSalon] = useState("Elan Beauty");
   const [loading, setLoading] = useState(false);
   const [pick, setPick] = useState<ShelfProduct | null>(null);
   const [qty, setQty] = useState(1);

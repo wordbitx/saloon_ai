@@ -370,5 +370,5 @@ export function runBrain(ctx: BrainCtx, rawMsg: string, prev: ChatState): BrainR
 
 export function confirmationText(ctx: BrainCtx, state: ChatState, dateISO: string, chairName?: string | null): string {
   const first = (state.customerName ?? "Guest").split(" ")[0];
-  return `Ho gaya ✓ ${state.serviceName} — ${prettyDate(dateISO)} (${dayName(dateISO)}) ${state.time}${state.staffName ? `, ${state.staffName} ke sath` : ""}${chairName ? ` · ${chairName}` : ""}.\n📍 ${ctx.salon.name}, ${ctx.salon.area}\nShukriya ${first}! Confirmation aur reminder isi chat par aayega. 💚`;
+  return `Ho gaya ✓ ${state.serviceName} — ${prettyDate(dateISO)} (${dayName(dateISO)}) ${state.time}${state.staffName ? `, ${state.staffName} ke sath` : ""}${chairName ? ` · ${chairName}` : ""}.\n📍 ${ctx.salon.name}, ${ctx.salon.area}\nShukriya ${first}! Confirmation aur reminder isi chat par aayega. 💙`;
 }

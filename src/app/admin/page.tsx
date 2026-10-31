@@ -296,7 +296,7 @@ export default function AdminPage() {
     return r.ok ? null : (r.message ?? "PIN ghalat hai");
   }, [login]);
 
-  const [salonName, setSalonName] = useState("Glow Salon (Demo A)");
+  const [salonName, setSalonName] = useState("Elan Beauty (Demo A)");
   useEffect(() => {
     void (async () => {
       const res = await fetch("/api/session", { cache: "no-store" });
@@ -340,8 +340,8 @@ export default function AdminPage() {
         <main className="admin-login-panel">
           <div className="admin-login-panel-head">
             <div>
-              <p className="text-[13px] font-extrabold">WordbitX Admin</p>
-              <p className="text-[10.5px] text-mut">Glow Salon, Lahore — Demo A</p>
+              <p className="text-[13px] font-extrabold">Elan Beauty Admin</p>
+              <p className="text-[10.5px] text-mut">Elan Beauty, Lahore — Demo A</p>
             </div>
             <ThemeToggle compact />
           </div>
@@ -402,7 +402,7 @@ export default function AdminPage() {
       </div>
 
       <footer className="admin-foot">
-        <span>WordbitX Admin Console · {salonName}</span>
+        <span>Elan Beauty Admin Console · {salonName}</span>
         <span>Guardrails: koi spam nahi · koi unofficial automation nahi · data sirf apna salon</span>
       </footer>
     </div>

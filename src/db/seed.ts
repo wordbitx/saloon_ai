@@ -120,11 +120,14 @@ async function ensureSchema() {
       // Ignore individual DDL errors if already applied
     }
   }
-  // Ensure existing salons have default admin_pin ('2468') and plan
+  // Ensure existing salons have default admin_pin ('2468'), plan, and Elan Beauty branding
   try {
     await pool.query(`update salons set admin_pin = '2468' where admin_pin is null or admin_pin = ''`);
     await pool.query(`update salons set plan = 'business' where slug = 'glow-demo' and (plan is null or plan = '')`);
     await pool.query(`update salons set plan = 'starter' where slug = 'noor-demo' and (plan is null or plan = '')`);
+    await pool.query(
+      `update salons set name = 'Elan Beauty', greeting = 'Assalam o Alaikum! Elan Beauty mein khush aamdeed 💙 Booking ya rates ke liye batayein — main foran jawab deta hoon.' where slug = 'glow-demo' and name = 'Glow Salon'`
+    );
   } catch {
     // Ignore if table empty
   }
@@ -169,10 +172,10 @@ async function seedIfEmpty() {
       .values({
         id: "00000000-0000-4000-8000-000000000001",
         slug: "glow-demo",
-        name: "Glow Salon",
+        name: "Elan Beauty",
         area: "DHA Phase 5, Lahore",
         greeting:
-          "Assalam o Alaikum! Glow Salon mein khush aamdeed 💚 Booking ya rates ke liye batayein — main foran jawab deta hoon.",
+          "Assalam o Alaikum! Elan Beauty mein khush aamdeed 💙 Booking ya rates ke liye batayein — main foran jawab deta hoon.",
         openTime: "11:00",
         closeTime: "20:00",
         closedDays: ["Monday"],
@@ -183,10 +186,16 @@ async function seedIfEmpty() {
         adminPin: "2468",
       })
       .returning();
-  } else if (!a.adminPin) {
+  } else if (!a.adminPin || a.name === "Glow Salon") {
     [a] = await db
       .update(salons)
-      .set({ adminPin: "2468" })
+      .set({
+        adminPin: a.adminPin || "2468",
+        name: a.name === "Glow Salon" ? "Elan Beauty" : a.name,
+        greeting: a.greeting.includes("Glow Salon")
+          ? "Assalam o Alaikum! Elan Beauty mein khush aamdeed 💙 Booking ya rates ke liye batayein — main foran jawab deta hoon."
+          : a.greeting,
+      })
       .where(eq(salons.id, a.id))
       .returning();
   }
