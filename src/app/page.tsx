@@ -26,36 +26,36 @@ import {
   ClipboardList,
   FileText,
   Rocket,
-  Mail,
   Phone,
   Plus,
   LayoutDashboard,
   Armchair,
+  Sparkles,
 } from "lucide-react";
-import {RippleButton, Reveal, CountUp, Ticker, cn} from "@/components/ui";
+import { RippleButton, Reveal, CountUp, Ticker, cn } from "@/components/ui";
 import { LandingHero } from "@/components/home/hero";
 import { ProductCatalog } from "@/components/shop/catalog";
 
-/* ── Data (sab fictional / prompt se) ────────────────────────────────────── */
+/* ── Core & Signature Luxury Features ────────────────────────────────────── */
 const CORE = [
-  "Missed message par foran jawab — Roman Urdu + simple English",
-  "Salon ki apni list se price / service jawab",
-  "Booking flow: service → date → time → naam → confirmation",
-  "Booking se pehle reminder",
-  "Cancellation par waitlist backfill — khaali slot waitlist ko offer",
-  "Owner dashboard: recovered, missed, pending, daily summary + CSV export",
-  "Owner override — owner beech mein aaye, assistant peeche hat jaye",
+  "Missed call & WhatsApp par 3-second instant response — Roman Urdu + English",
+  "Salon ke apne official menu se accurate rate & service guidance",
+  "Complete booking concierge: Service → Date → Time → Stylist → Chair confirmation",
+  "Appointment se 2 ghante pehle automated WhatsApp reminder",
+  "Cancellation par smart waitlist backfill — khaali slot foran next client ko offer",
+  "Executive owner dashboard: recovered revenue, daily brief, chair floor view & CSV export",
+  "Instant owner override — owner chat mein aaye to AI concierge khamoshi se peeche hat jaye",
 ];
 
 const NEW_FEATURES = [
-  { icon: PhoneMissed, title: "Missed call → foran WhatsApp", desc: "Call miss ho to customer ko khud message: 'Aap ne call ki thi, booking chahiye?'" },
-  { icon: UserCheck, title: "Repeat customer ki pehchan", desc: "'Walaikum Assalam Ayesha! Last time balayage karwaya tha — is baar bhi wohi?'" },
-  { icon: Star, title: "Google review request", desc: "Service complete hone par customer ko review ka link jata hai." },
-  { icon: Users, title: "Staff-wise booking", desc: "'Hina se hi booking chahiye' — stylist loyalty salons ki jaan hai." },
-  { icon: Crown, title: "Bridal / package upsell", desc: "Bridal booking par mehndi / trial ka mashwara — bara ticket, khush customer." },
-  { icon: Mic, title: "Voice-note summary", desc: "Customer ka voice note text summary ban kar owner ko milta hai. Assistant khud voice mein baat NAHI karta." },
-  { icon: GitBranch, title: "Multi-branch + subah ki brief", desc: "Roz subah aik message: aaj ki bookings, khaali slots, kal ke missed." },
-  { icon: Settings2, title: "Editable salon settings", desc: "Naam, services, prices, timing badlein — chat aur dashboard usi waqt badal jate hain." },
+  { icon: PhoneMissed, title: "Missed Call → Instant WhatsApp", desc: "Call miss hote hi client ko 3 second mein luxury concierge message: 'Aap ne call ki thi — konsa slot reserve karein?'" },
+  { icon: UserCheck, title: "VIP & Repeat Client Recognition", desc: "'Walaikum Assalam Ayesha! Pichli dafa Hina ke sath Balayage hua tha — is baar bhi wohi slot book karein?'" },
+  { icon: Star, title: "Automated Google Review Concierge", desc: "Appointment complete hote hi client ko polite thank-you note aur direct Google review link." },
+  { icon: Users, title: "Stylist & Specialist-Wise Booking", desc: "'Mujhe sirf Senior Artist Sana se booking chahiye' — stylist availability aur chair khud match hoti hai." },
+  { icon: Crown, title: "Bridal & High-Ticket Package Upsell", desc: "Bridal inquiry par trial, mehndi aur hydra-facial pre-care packages ka smart recommendation." },
+  { icon: Mic, title: "Voice-Note Executive Summary", desc: "Client ke lambe voice note ko instant text summary bana kar owner dashboard par dikhata hai." },
+  { icon: GitBranch, title: "Multi-Branch + Morning Executive Brief", desc: "Roz subah owner ko mukammal brief: aaj ki bookings, khaali chairs, aur kal ki recovered revenue." },
+  { icon: Settings2, title: "Real-Time Salon Menu & Timing Control", desc: "Services, prices, timing ya greeting badlein — AI concierge aur dashboard usi pal update ho jate hain." },
 ];
 
 const PLANS = [
@@ -109,38 +109,34 @@ const PLANS = [
 ];
 
 const NOT_DOING = [
-  "Koi fake testimonial, client count ya result ka dawa nahi",
-  "Koi bulk / cold spam messaging nahi — kabhi nahi",
-  "Koi unofficial / personal-number WhatsApp automation nahi",
-  "Meta partnership ka koi dawa nahi",
-  "'Guaranteed sales' jaisi guarantee nahi — demo proof deta hai",
-  "Sample data hamesha  label ke sath",
+  "Koi fake testimonial, client count ya jhoota dawa nahi",
+  "Koi bulk ya cold spam messaging nahi — kabhi nahi",
+  "Koi unofficial ya personal-number WhatsApp automation nahi",
+  "Meta partnership ka koi ghalat dawa nahi",
+  "'Guaranteed sales' jaisi false guarantee nahi — live demo khud proof deta hai",
+  "100% tenant isolation — har salon ka data mukammal mehfooz",
 ];
 
 const FAQS = [
   {
     q: "Kya ye receptionist ko replace karta hai?",
-    a: "Nahi. Receptionist voice calls, guidelines aur mushkil queries mein acha hai — ye product us ka overflow pakarta hai: peak hours mein aik waqt par aik call, raat ko koi nahi, chhutti par koi nahi.",
+    a: "Nahi. Receptionist salon floor aur walk-in guests ke liye zaroori hai — Elan Beauty Suite us ka overflow pakarta hai: peak hours mein jab line busy ho, raat ko jab salon band ho, ya chhutti wale din.",
   },
   {
     q: "WhatsApp Business free app se farq kya hai?",
-    a: "Free app sirf greeting / away / quick-reply templates deta hai — har jawab phir bhi insan bhejta hai. Booking, reminder, waitlist aur report wo NAHI karta. Yeh product wohi kaam karta hai.",
-  },
-  {
-    q: "Meta ka Cloud API to khud available hai — product kya hai?",
-    a: "Cloud API sirf rasta (pipe) hai. Us ke upar dimagh (jawab + booking flow), setup aur maintenance hi yeh product hai. Phase 2 mein sirf Official Cloud API use hoga — Meta verification + approved templates ke baad.",
+    a: "Free app sirf एक static greeting bhejta hai — har jawab phir bhi insan ko likhna parta hai. Service rates batana, chair availability check karna, booking confirm karna, reminder bhejna aur dashboard report banana yeh system khud karta hai.",
   },
   {
     q: "Setup kitni dair mein hota hai?",
-    a: "24 ghante mein setup — Elan Beauty ki poori team onboarding karti hai. Optional setup service (PKR 5,000 / $29) mein services, prices aur FAQs hum khud enter karte hain.",
+    a: "Sirf 24 ghante mein — WordbitX (wordbitx.pk) ki dedicated engineering team onboarding karti hai. Optional white-glove setup service (PKR 5,000 / $29) mein aap ke salon ki tamam services, prices aur FAQs hum khud configure karte hain.",
   },
   {
     q: "Mere salon ka data kaun dekh sakta hai?",
-    a: "Sirf aap. Har row par salon_id hai aur Row Level Security aisi ke aik salon doosre salon ka data kabhi na dekhe. Dashboard par live isolation tests khud chala kar dekhein.",
+    a: "Sirf aap. Har record par strict salon_id aur Row Level Security lagi hai taake aik salon doosre salon ka data kabhi na dekh sake. Dashboard par live isolation test mojood hai.",
   },
   {
-    q: "Hamare followers bohat zyada hain — phir bhi zaroorat?",
-    a: "Bara following = bara leak, kam zaroorat nahi. Jitne zyada followers, utne zyada missed messages — recovery ki qeemat bhi utni zyada.",
+    q: "Hamare Instagram/WhatsApp par bohat messages aate hain — kya yeh sambhal lega?",
+    a: "Jitne zyada messages, utna bara revenue leak. High-volume salons mein hi sab se zyada calls aur messages miss hotay hain — yeh system har inquiry ko 3 second mein jawab de kar booking mein convert karta hai.",
   },
 ];
 
@@ -151,230 +147,400 @@ export default function LandingPage() {
     <div className="home-page">
       <LandingHero />
 
-      <ProductCatalog limit={5} />
-
-      {/* ── Recovered ticker ────────────────────────────────────────────── */}
-      <section className="home-activity py-3.5">
+      {/* ── Deep Royal Navy Live Recovery Ribbon ────────────────────────── */}
+      <section className="home-activity py-4">
         <div className="site-container">
-          <div className="mb-2.5 flex items-center gap-2 text-[10.5px] font-bold uppercase tracking-wider text-mut">
-            <CalendarCheck size={12} className="text-accent" /> Aaj bachai gayi bookings
-            <span className="ml-auto hidden font-medium normal-case sm:inline">Hover par rukta hai</span>
+          <div className="mb-2.5 flex items-center gap-2 text-[10.5px] font-extrabold uppercase tracking-[0.14em] text-[#f3d474]">
+            <Sparkles size={13} className="text-[#e5c158]" /> Live Salon Recovery Stream · Powered by WordbitX
+            <span className="ml-auto hidden font-semibold normal-case text-slate-300 sm:inline">
+              Hover to pause stream
+            </span>
           </div>
           <Ticker
             items={[
-              <span key="1"><b className="text-accent">Balayage</b> — Ayesha · 5:30 PM <span className="text-mut">· missed-call se</span></span>,
-              <span key="2"><b className="text-accent">Facial</b> — Mahnoor · 3:30 PM <span className="text-mut">· raat ke message se</span></span>,
-              <span key="3"><b className="text-accent">Manicure</b> — Komal · kal <span className="text-mut">· waitlist backfill</span></span>,
-              <span key="4"><b className="text-accent">Bridal Makeup</b> — booking + trial upsell <span className="text-mut">· voice note se</span></span>,
-              <span key="5"><b className="text-accent">Haircut</b> — Hina ke sath <span className="text-mut">· staff loyalty</span></span>,
-              <span key="6"><b className="text-accent">Review ★</b> — Fatima ko link gaya <span className="text-mut">· service ke baad</span></span>,
+              <span key="1"><b className="text-[#f3d474]">Signature Balayage</b> — Ayesha · 5:30 PM <span className="text-slate-300">· Recovered from missed call (PKR 14,500)</span></span>,
+              <span key="2"><b className="text-[#f3d474]">Hydra Glow Facial</b> — Mahnoor · 5:00 PM <span className="text-slate-300">· 10:42 PM late-night WhatsApp</span></span>,
+              <span key="3"><b className="text-[#f3d474]">Bridal Barat Trial</b> — Zunaira · Kal 2:00 PM <span className="text-slate-300">· Senior Artist Sana</span></span>,
+              <span key="4"><b className="text-[#f3d474]">Gel Nail Extensions</b> — Komal · 4:00 PM <span className="text-slate-300">· Waitlist auto-backfill</span></span>,
+              <span key="5"><b className="text-[#f3d474]">Keratin Ritual</b> — Hira · 6:00 PM <span className="text-slate-300">· Repeat VIP client recognized</span></span>,
+              <span key="6"><b className="text-[#f3d474]">5★ Google Review</b> — Fatima <span className="text-slate-300">· Sent automatically post-service</span></span>,
             ]}
           />
         </div>
       </section>
 
-      {/* ── Problem: growth nahi, recovery ──────────────────────────────── */}
-      <section className="site-container home-problem grid gap-12 lg:grid-cols-[0.9fr_1.1fr]">
+      {/* ── Warm Champagne Pearl Boutique Section ───────────────────────── */}
+      <ProductCatalog limit={5} />
+
+      {/* ── Executive Problem Showcase: Why Luxury Salons Lose Bookings ─── */}
+      <section className="site-container home-problem grid items-center gap-10 lg:grid-cols-[0.95fr_1.05fr]">
         <Reveal>
-          <p className="text-[11px] font-extrabold uppercase tracking-[0.16em] text-accent">Problem</p>
-          <h2 className="mt-3 text-3xl font-extrabold sm:text-4xl">
-            Growth nahi —<br />recovery.
-          </h2>
-          <p className="mt-4 max-w-sm text-sm leading-relaxed text-mut">
-            Receptionist replace nahi hota — us ka <strong className="text-ink">overflow</strong> pakra jata hai. Jo customer
-            pehle jawab deta hai, booking us ki.
-          </p>
-          <div className="card mt-6 flex items-start gap-3 border-l-2 border-l-brand p-4">
-            <TrendingUp size={18} className="mt-0.5 shrink-0 text-accent" />
-            <p className="text-[13px] leading-relaxed">
-              <strong>Bara following = bara leak.</strong>{" "}
-              <span className="text-mut">Jitne zyada followers, utne zyada missed messages — kam zaroorat nahi.</span>
+          <div className="card-luxe-featured rounded-2xl p-7 sm:p-8">
+            <span className="inline-flex items-center gap-1.5 rounded-full border border-[#e5c158]/45 bg-[#e5c158]/15 px-3 py-1 text-[10px] font-extrabold uppercase tracking-[0.14em] text-[#f3d474]">
+              <TrendingUp size={12} /> The Luxury Salon Revenue Leak
+            </span>
+            <h2 className="mt-4 text-3xl font-extrabold text-white sm:text-4xl">
+              Receptionist Replace Nahi Hota — <span className="text-[#f3d474]">Overflow Recover</span> Hota Hai.
+            </h2>
+            <p className="mt-4 text-[13.5px] leading-relaxed text-slate-200">
+              Jab client bridal ya facial ke liye 3 salons ko WhatsApp karta hai,{" "}
+              <strong className="text-white">jo salon pehle 30 second mein professional jawab de, booking usi ki hoti hai.</strong>{" "}
+              Peak hours aur raat 9 baje ke baad miss hone wali har call seedha revenue loss hai.
             </p>
+
+            <div className="mt-6 grid grid-cols-2 gap-3 border-t border-white/15 pt-5">
+              <div className="rounded-xl border border-white/12 bg-white/6 p-3.5">
+                <p className="text-2xl font-extrabold text-[#f3d474]">78%</p>
+                <p className="mt-1 text-[11px] font-semibold text-slate-200">
+                  Clients book with the first salon that replies
+                </p>
+              </div>
+              <div className="rounded-xl border border-white/12 bg-white/6 p-3.5">
+                <p className="text-2xl font-extrabold text-white">24 / 7</p>
+                <p className="mt-1 text-[11px] font-semibold text-slate-200">
+                  Peak-hour, late-night &amp; Sunday coverage
+                </p>
+              </div>
+            </div>
+
+            <div className="mt-5 flex items-center justify-between text-[11.5px] text-slate-300">
+              <span>Engineered for Pakistani Luxury Salons</span>
+              <a href="http://wordbitx.pk" target="_blank" className="font-extrabold text-[#f3d474] underline">
+                by WordbitX (wordbitx.pk) ↗
+              </a>
+            </div>
           </div>
         </Reveal>
-        <Reveal group>
+
+        <Reveal group className="grid gap-4 sm:grid-cols-2">
           {[
-            { n: "01", t: "Peak hours: aik waqt, aik call", d: "Receptionist line par hai to baaki calls miss — raat ko aur chhutti par to koi hai hi nahi." },
-            { n: "02", t: "Customer 3–4 salons ko message karta hai", d: "Jo pehle reply kare, booking us ki. Der se reply = customer doosre salon chala gaya." },
-            { n: "03", t: "WhatsApp Business app kaafi nahi", d: "Sirf greeting / away / quick-reply templates — har jawab phir bhi insan bhejta hai. Booking, reminder, waitlist, report? Nahi." },
-            { n: "04", t: "Cloud API sirf pipe hai", d: "Meta ka API rasta deta hai — dimagh us ke upar banana parta hai. Dimagh + setup + maintenance = yeh product." },
+            {
+              n: "01",
+              t: "Peak Hours: Aik Waqt, Aik Call",
+              d: "Receptionist front-desk par client deal kar rahi ho to baaki calls aur WhatsApp messages wait karte reh jate hain.",
+            },
+            {
+              n: "02",
+              t: "Client 3–4 Salons Ko Message Karta Hai",
+              d: "Der se reply ka matlab hai client kisi doosre studio mein apna slot confirm kar chuka hai.",
+            },
+            {
+              n: "03",
+              t: "Free WhatsApp Business App Kaafi Nahi",
+              d: "Static away-message booking confirm nahi karta, na chair conflict rokta hai aur na waitlist chala sakta hai.",
+            },
+            {
+              n: "04",
+              t: "Complete AI Brain + White-Glove Setup",
+              d: "WordbitX aap ke salon ke rates, stylists aur chairs ke mutabiq poora automated booking system tayyar kar ke deta hai.",
+            },
           ].map((r) => (
-            <div key={r.n} className="reveal-item flex gap-5 border-t border-line py-5 first:border-t-0 first:pt-0">
-              <span className="text-xl font-extrabold text-accent">{r.n}</span>
-              <div>
-                <h3 className="text-[15px] font-bold">{r.t}</h3>
-                <p className="mt-1 text-[13px] leading-relaxed text-mut">{r.d}</p>
-              </div>
+            <div key={r.n} className="reveal-item card-luxe-tier rounded-2xl p-5">
+              <span className="inline-flex h-8 w-8 items-center justify-center rounded-lg border border-luxe/45 bg-luxe-soft text-xs font-extrabold text-mint">
+                {r.n}
+              </span>
+              <h3 className="mt-3.5 text-[15px] font-extrabold text-ink">{r.t}</h3>
+              <p className="mt-1.5 text-[12.5px] leading-relaxed text-mut">{r.d}</p>
             </div>
           ))}
         </Reveal>
       </section>
 
-      {/* ── How it works ────────────────────────────────────────────────── */}
-      <section id="how-it-works" className="home-section-band home-section">
+      {/* ── How It Works — Rich Royal Midnight Navy Showcase Band ───────── */}
+      <section id="how-it-works" className="home-section-navy home-section">
         <div className="site-container">
-          <Reveal className="mb-8 flex flex-wrap items-end justify-between gap-3">
+          <Reveal className="mb-10 flex flex-wrap items-end justify-between gap-4">
             <div>
-              <p className="text-[11px] font-extrabold uppercase tracking-[0.16em] text-accent">Kaise chalta hai</p>
-              <h2 className="mt-2 text-3xl font-extrabold">Miss se report tak — aik hi system</h2>
+              <span className="inline-flex items-center gap-1.5 rounded-full border border-[#e5c158]/40 bg-[#e5c158]/15 px-3 py-1 text-[10px] font-extrabold uppercase tracking-[0.14em] text-[#f3d474]">
+                <Sparkles size={11} /> Seamless 4-Step Architecture
+              </span>
+              <h2 className="mt-3 text-3xl font-extrabold text-white sm:text-4xl">
+                Missed Call Se Confirmed Chair Tak — <span className="text-[#f3d474]">Khudkar Flow</span>
+              </h2>
             </div>
-            <RippleButton href="/demo" variant="ghost" className="!py-2 text-xs">
-              Khud chala kar dekhein <ArrowRight size={13} />
+            <RippleButton href="/demo" variant="luxe" className="!py-2.5 text-xs">
+              Interactive Chat Chalayein <ArrowRight size={14} />
             </RippleButton>
           </Reveal>
-          <Reveal group className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+
+          <Reveal group className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
             {[
-              { icon: PhoneMissed, t: "Message / call miss hua", d: "Peak hour, raat ya chhutti — system ne pakar liya." },
-              { icon: MessageCircle, t: "Foran jawab gaya", d: "Roman Urdu + simple English, salon ki apni prices ke sath." },
-              { icon: CalendarCheck, t: "Booking flow chala", d: "Service → date → time → naam → confirmation + reminder." },
-              { icon: ClipboardList, t: "Owner ko roz list", d: "'Aaj kitni booking bachi' — dashboard, summary aur CSV." },
-            ].map((s, i) => (
-              <div key={s.t} className="reveal-item relative rounded-xl border border-line bg-page p-5">
-                <span className="absolute right-4 top-4 text-[11px] font-extrabold text-mut">{i + 1}/4</span>
-                <span className="grid h-10 w-10 place-items-center rounded-lg bg-brand-soft text-accent">
-                  <s.icon size={18} />
-                </span>
-                <h3 className="mt-4 text-sm font-bold">{s.t}</h3>
-                <p className="mt-1.5 text-[12.5px] leading-relaxed text-mut">{s.d}</p>
+              {
+                icon: PhoneMissed,
+                step: "STEP 01",
+                t: "Call Ya Message Miss Hua",
+                d: "Peak hour, raat 11 baje ya chhutti — system usi second inquiry ko detect kar leta hai.",
+              },
+              {
+                icon: MessageCircle,
+                step: "STEP 02",
+                t: "3-Second Luxury Reply",
+                d: "Roman Urdu + English mein aap ke salon ki asli price list aur available slots pesh karta hai.",
+              },
+              {
+                icon: CalendarCheck,
+                step: "STEP 03",
+                t: "Stylist & Chair Lock",
+                d: "Double-booking guard ke sath chair reserve hoti hai aur 2 ghante pehle reminder lag jata hai.",
+              },
+              {
+                icon: ClipboardList,
+                step: "STEP 04",
+                t: "Owner Daily Revenue Brief",
+                d: "Dashboard par live update: aaj kitni bookings aur kitne hazar PKR recover hue.",
+              },
+            ].map((s) => (
+              <div key={s.t} className="reveal-item home-luxe-step-card">
+                <div className="flex items-center justify-between">
+                  <span className="grid h-11 w-11 place-items-center rounded-xl border border-[#e5c158]/40 bg-[#e5c158]/15 text-[#f3d474]">
+                    <s.icon size={20} />
+                  </span>
+                  <span className="rounded-full border border-white/15 bg-white/8 px-2.5 py-0.5 text-[9.5px] font-extrabold tracking-wider text-[#f3d474]">
+                    {s.step}
+                  </span>
+                </div>
+                <h3 className="mt-5 text-base font-extrabold text-white">{s.t}</h3>
+                <p className="mt-2 text-[12.5px] leading-relaxed text-slate-300">{s.d}</p>
               </div>
             ))}
           </Reveal>
         </div>
       </section>
 
-      {/* ── Dashboard / admin strip ─────────────────────────────────────── */}
+      {/* ── 3 Executive Command Pillars (Dashboard / Floor / Admin) ─────── */}
       <section className="site-container home-section">
-        <Reveal group className="grid gap-4 md:grid-cols-3">
-          <div className="reveal-item card flex flex-col p-5">
-            <span className="grid h-10 w-10 place-items-center rounded-lg bg-brand-soft text-accent"><LayoutDashboard size={18} /></span>
-            <h3 className="mt-3 text-[15px] font-extrabold">Aap ka poora salon — aik dashboard</h3>
-            <p className="mt-1.5 flex-1 text-[12.5px] leading-relaxed text-mut">
-              Responsive sidebar (open/close), overview, chair-by-chair floor view, bookings, clients, staff, services, chairs aur settings — mobile par bhi.
-            </p>
-            <RippleButton href="/dashboard" variant="ghost" className="mt-4 !py-2 text-xs">Dashboard kholen <ArrowRight size={12} /></RippleButton>
-          </div>
-          <div className="reveal-item card flex flex-col p-5">
-            <span className="grid h-10 w-10 place-items-center rounded-lg bg-brand-soft text-accent"><Armchair size={18} /></span>
-            <h3 className="mt-3 text-[15px] font-extrabold">Chair-level double-booking guard</h3>
-            <p className="mt-1.5 flex-1 text-[12.5px] leading-relaxed text-mut">
-              Same chair + same time par doosri booking NAHI. Conflict par customer ko WhatsApp par rabta karne ka mashwara, warna doosra free slot.
-            </p>
-            <RippleButton href="/dashboard/floor" variant="ghost" className="mt-4 !py-2 text-xs">Floor view dekhein <ArrowRight size={12} /></RippleButton>
-          </div>
-          <div className="reveal-item card flex flex-col p-5">
-            <span className="grid h-10 w-10 place-items-center rounded-lg bg-brand-soft text-accent"><ShieldCheck size={18} /></span>
-            <h3 className="mt-3 text-[15px] font-extrabold">Admin console — full access</h3>
-            <p className="mt-1.5 flex-1 text-[12.5px] leading-relaxed text-mut">
-              Admin har cheez CRUD kar sakta hai: multiple staff, services, chairs, clients, bookings. Owner view read-only. /admin par login — demo PIN 2468.
-            </p>
-          </div>
-        </Reveal>
-      </section>
-
-      {/* ── Features ────────────────────────────────────────────────────── */}
-      <section className="site-container home-section">
-        <Reveal>
-          <p className="text-[11px] font-extrabold uppercase tracking-[0.16em] text-accent">Features — sab shamil</p>
-          <h2 className="mt-2 max-w-xl text-3xl font-extrabold sm:text-4xl">Core har plan mein. Naye features owner ko impress karne ke liye.</h2>
+        <Reveal className="mb-9 text-center">
+          <span className="badge-luxe mx-auto">
+            <LayoutDashboard size={11} /> Executive Salon Command Center
+          </span>
+          <h2 className="mt-3 text-3xl font-extrabold sm:text-4xl">
+            Poora Salon Aik Luxury Workspace Mein
+          </h2>
+          <p className="mx-auto mt-2 max-w-xl text-sm text-mut">
+            Owner, Manager aur Reception ke liye alag role-based access — mobile aur desktop dono par mukammal control.
+          </p>
         </Reveal>
 
-        <div className="mt-9 grid gap-6 lg:grid-cols-[0.95fr_1.05fr]">
-          <Reveal className="card p-6">
-            <h3 className="flex items-center gap-2 text-sm font-extrabold uppercase tracking-wider text-mut">
-              <ListChecks size={15} className="text-accent" /> Core — har plan mein
-            </h3>
-            <ul className="mt-4 grid gap-3">
-              {CORE.map((c) => (
-                <li key={c} className="flex items-start gap-2.5 text-[13.5px] leading-relaxed">
-                  <Check size={15} className="mt-0.5 shrink-0 text-accent" />
-                  {c}
-                </li>
-              ))}
-            </ul>
-            <div className="mt-5 flex items-center gap-2 rounded-lg border border-line bg-raised px-3.5 py-2.5 text-[12px] text-mut">
-              <Camera size={14} className="shrink-0 text-accent" />
-              Instagram DM coverage — <b className="text-ink">Phase 2</b> mein (abhi nahi).
+        <Reveal group className="grid gap-6 md:grid-cols-3">
+          <div className="reveal-item card-luxe-tier flex flex-col rounded-2xl p-6">
+            <div className="flex items-center justify-between">
+              <span className="grid h-11 w-11 place-items-center rounded-xl bg-brand text-[#f3d474] shadow-sm">
+                <LayoutDashboard size={20} />
+              </span>
+              <span className="badge-luxe">Live Telemetry</span>
             </div>
+            <h3 className="mt-4 text-lg font-extrabold">Executive Owner Dashboard</h3>
+            <p className="mt-2 flex-1 text-[13px] leading-relaxed text-mut">
+              Recovered revenue, 7-day booking analytics, waitlist queue, Google reviews, client CRM aur retail orders — sab aik nazar mein.
+            </p>
+            <RippleButton href="/dashboard" variant="brand" className="mt-5 w-full !py-2.5 text-xs">
+              Open Owner Dashboard <ArrowRight size={13} />
+            </RippleButton>
+          </div>
+
+          <div className="reveal-item card-luxe-featured flex flex-col rounded-2xl p-6">
+            <div className="flex items-center justify-between">
+              <span className="grid h-11 w-11 place-items-center rounded-xl border border-[#e5c158]/40 bg-[#e5c158]/20 text-[#f3d474]">
+                <Armchair size={20} />
+              </span>
+              <span className="rounded-full border border-[#e5c158]/40 bg-[#e5c158]/15 px-2.5 py-0.5 text-[9.5px] font-extrabold uppercase tracking-wider text-[#f3d474]">
+                Zero Conflict
+              </span>
+            </div>
+            <h3 className="mt-4 text-lg font-extrabold text-white">Chair-Level Double-Booking Guard</h3>
+            <p className="mt-2 flex-1 text-[13px] leading-relaxed text-slate-200">
+              Aik hi chair aur waqt par doosri booking mumkin nahi. Conflict aane par system khud alternate slot ya stylist suggest karta hai.
+            </p>
+            <RippleButton href="/dashboard/floor" variant="luxe" className="mt-5 w-full !py-2.5 text-xs">
+              Explore Chair Floor View <ArrowRight size={13} />
+            </RippleButton>
+          </div>
+
+          <div className="reveal-item card-luxe-tier flex flex-col rounded-2xl p-6">
+            <div className="flex items-center justify-between">
+              <span className="grid h-11 w-11 place-items-center rounded-xl border border-luxe/45 bg-luxe-soft text-mint">
+                <ShieldCheck size={20} />
+              </span>
+              <span className="badge-luxe">Demo PIN: 2468</span>
+            </div>
+            <h3 className="mt-4 text-lg font-extrabold">Full Admin Console</h3>
+            <p className="mt-2 flex-1 text-[13px] leading-relaxed text-mut">
+              Staff, services, chairs, retail products, client profiles aur multi-tenant switching — PIN <b className="text-ink">2468</b> se full CRUD control.
+            </p>
+            <RippleButton href="/admin" variant="ghost" className="mt-5 w-full !py-2.5 text-xs">
+              Launch Admin Console <ArrowRight size={13} />
+            </RippleButton>
+          </div>
+        </Reveal>
+      </section>
+
+      {/* ── Luxury Feature Matrix (Warm Champagne Pearl Band) ───────────── */}
+      <section className="home-section-band home-section">
+        <div className="site-container">
+          <Reveal className="text-center">
+            <span className="badge-luxe mx-auto">
+              <Crown size={11} /> Complete Luxury Feature Suite
+            </span>
+            <h2 className="mt-3 mx-auto max-w-2xl text-3xl font-extrabold sm:text-4xl">
+              Core Har Plan Mein — Signature Features Aap Ke Salon Ko Mumtaz Banayein
+            </h2>
           </Reveal>
 
-          <Reveal group className="grid gap-3 sm:grid-cols-2">
-            {NEW_FEATURES.map((f) => (
-              <div key={f.title} className="reveal-item card p-4 transition-colors hover:border-brand/50">
-                <span className="grid h-9 w-9 place-items-center rounded-lg bg-brand-soft text-accent">
-                  <f.icon size={16} />
-                </span>
-                <h4 className="mt-3 text-[13.5px] font-bold">{f.title}</h4>
-                <p className="mt-1 text-[12px] leading-relaxed text-mut">{f.desc}</p>
+          <div className="mt-10 grid gap-6 lg:grid-cols-[0.92fr_1.08fr]">
+            <Reveal className="card-luxe-featured flex flex-col justify-between rounded-2xl p-7">
+              <div>
+                <div className="flex items-center justify-between gap-2">
+                  <span className="inline-flex items-center gap-2 text-xs font-extrabold uppercase tracking-[0.14em] text-[#f3d474]">
+                    <ListChecks size={16} /> Core Standard · Every Plan
+                  </span>
+                  <span className="rounded-full border border-white/15 bg-white/10 px-2.5 py-0.5 text-[10px] font-bold text-white">
+                    7 Pillars
+                  </span>
+                </div>
+                <h3 className="mt-3 text-2xl font-extrabold text-white">
+                  Har Package Mein Mukammal Booking &amp; Recovery Engine
+                </h3>
+                <ul className="mt-6 grid gap-3.5">
+                  {CORE.map((c) => (
+                    <li key={c} className="flex items-start gap-3 text-[13.5px] leading-relaxed text-slate-100">
+                      <span className="mt-0.5 grid h-5 w-5 shrink-0 place-items-center rounded-full bg-[#d4af37]/25 text-[#f3d474]">
+                        <Check size={12} />
+                      </span>
+                      <span>{c}</span>
+                    </li>
+                  ))}
+                </ul>
               </div>
-            ))}
-          </Reveal>
+
+              <div className="mt-7 flex items-center justify-between gap-3 rounded-xl border border-[#e5c158]/35 bg-white/6 px-4 py-3 text-[12px] text-slate-200">
+                <span className="flex items-center gap-2">
+                  <Camera size={15} className="shrink-0 text-[#f3d474]" />
+                  Instagram DM &amp; Official Meta Cloud API ready
+                </span>
+                <a href="http://wordbitx.pk" target="_blank" className="font-extrabold text-[#f3d474] underline">
+                  wordbitx.pk ↗
+                </a>
+              </div>
+            </Reveal>
+
+            <Reveal group className="grid gap-3.5 sm:grid-cols-2">
+              {NEW_FEATURES.map((f, idx) => (
+                <div key={f.title} className="reveal-item card-luxe-tier rounded-xl p-4.5">
+                  <span
+                    className={cn(
+                      "grid h-9 w-9 place-items-center rounded-lg border",
+                      idx % 2 === 0
+                        ? "border-luxe/45 bg-luxe-soft text-mint"
+                        : "border-brand/20 bg-brand-soft text-accent",
+                    )}
+                  >
+                    <f.icon size={16} />
+                  </span>
+                  <h4 className="mt-3 text-[14px] font-extrabold text-ink">{f.title}</h4>
+                  <p className="mt-1 text-[12px] leading-relaxed text-mut">{f.desc}</p>
+                </div>
+              ))}
+            </Reveal>
+          </div>
         </div>
       </section>
 
-      {/* ── Owner control + WordbitX service ────────────────────────────── */}
-      <section className="home-section-band home-section">
-        <div className="site-container grid items-center gap-12 lg:grid-cols-2">
+      {/* ── Owner Control + WordbitX Engineering ────────────────────────── */}
+      <section className="site-container home-section">
+        <div className="grid items-center gap-12 lg:grid-cols-2">
           <Reveal>
-            <p className="text-[11px] font-extrabold uppercase tracking-[0.16em] text-accent">Owner control</p>
-            <h2 className="mt-2 text-3xl font-extrabold">Owner hamesha control mein — assistant peeche</h2>
-            <ul className="mt-5 grid gap-3 text-[13.5px]">
+            <span className="badge-luxe">
+              <ShieldCheck size={12} /> Owner Control · Engineered by WordbitX
+            </span>
+            <h2 className="mt-3 text-3xl font-extrabold sm:text-4xl">
+              Owner Hamesha Control Mein — AI Concierge Aap Ke Hukum Par
+            </h2>
+            <ul className="mt-5 grid gap-3.5 text-[13.5px]">
               {[
-                "Owner jab chahe beech mein aa jaye — assistant usi waqt peeche hat jata hai",
-                "Har reply owner ko nazar aata hai — kuch chhupta nahi",
-                "Roz aik summary: 'Aaj kitni booking bachi' — subah ki brief ke sath",
+                "Owner jab chahe conversation mein aa jaye — AI concierge usi pal pause ho jata hai",
+                "Har message, booking aur revenue figure owner dashboard par transparent rehta hai",
+                "Rozana subah executive summary: 'Aaj kitni bookings aur kitni रकम bachi'",
               ].map((t) => (
                 <li key={t} className="flex items-start gap-2.5">
-                  <ShieldCheck size={15} className="mt-0.5 shrink-0 text-accent" /> {t}
+                  <span className="mt-0.5 grid h-5 w-5 shrink-0 place-items-center rounded-full bg-luxe-soft text-mint">
+                    <ShieldCheck size={13} />
+                  </span>
+                  <span>{t}</span>
                 </li>
               ))}
             </ul>
             <div className="mt-7 grid grid-cols-2 gap-3 sm:grid-cols-4">
               {[
-                { icon: Clock, t: "24 ghante mein setup" },
-                { icon: Users, t: "Poori team ki support" },
-                { icon: FileText, t: "Monthly report" },
-                { icon: Rocket, t: "Proper onboarding" },
+                { icon: Clock, t: "24h Fast Setup" },
+                { icon: Users, t: "WordbitX Team" },
+                { icon: FileText, t: "Executive Reports" },
+                { icon: Rocket, t: "Full Onboarding" },
               ].map((s) => (
-                <div key={s.t} className="rounded-lg border border-line bg-page p-3 text-center">
-                  <s.icon size={16} className="mx-auto text-accent" />
-                  <p className="mt-2 text-[11px] font-bold leading-tight">{s.t}</p>
+                <div key={s.t} className="rounded-xl border border-luxe/35 bg-luxe-soft/60 p-3.5 text-center">
+                  <s.icon size={17} className="mx-auto text-mint" />
+                  <p className="mt-2 text-[11.5px] font-extrabold leading-tight text-ink">{s.t}</p>
                 </div>
               ))}
             </div>
-            <p className="mt-3 text-[11.5px] text-mut">Elan Beauty — salons ke liye banaya gaya complete booking &amp; recovery system.</p>
+            <p className="mt-4 text-[12px] leading-relaxed text-mut">
+              Engineered by{" "}
+              <a href="http://wordbitx.pk" target="_blank" className="font-extrabold text-mint underline">
+                WordbitX (wordbitx.pk)
+              </a>{" "}
+              — WordbitX agency ya freelancer nahi, aik dedicated software company aur luxury salon technology brand hai.
+            </p>
           </Reveal>
 
           <Reveal delay={120}>
-            <div className="card overflow-hidden">
-              <div className="flex items-center justify-between border-b border-line px-5 py-3.5">
-                <p className="text-[13px] font-bold">Aaj ki summary — Elan Beauty</p>
+            <div className="card-luxe-tier overflow-hidden rounded-2xl">
+              <div
+                className="flex items-center justify-between px-6 py-4 text-white"
+                style={{ background: "linear-gradient(135deg, #0b162e 0%, #162c58 100%)" }}
+              >
+                <div>
+                  <p className="text-[10px] font-extrabold uppercase tracking-[0.14em] text-[#f3d474]">
+                    EXECUTIVE DAILY BRIEF
+                  </p>
+                  <p className="mt-0.5 text-sm font-extrabold">Elan Beauty · Gulberg &amp; DHA</p>
+                </div>
+                <a
+                  href="http://wordbitx.pk"
+                  target="_blank"
+                  className="rounded-full border border-[#e5c158]/45 bg-[#e5c158]/15 px-3 py-1 text-[10px] font-extrabold text-[#f3d474]"
+                >
+                  WordbitX Suite ↗
+                </a>
               </div>
-              <div className="grid grid-cols-3 divide-x divide-line border-b border-line">
+              <div className="grid grid-cols-3 divide-x divide-line border-b border-line bg-raised/50">
                 {[
-                  { v: 3, l: "Recovered" },
-                  { v: 2, l: "Pending replies" },
-                  { v: 1, l: "Review gaya" },
+                  { v: 6, suffix: "", l: "Bookings Recovered", gold: false },
+                  { v: 24500, suffix: "", l: "PKR Saved Today", gold: true },
+                  { v: 5, suffix: "★", l: "Reviews Sent", gold: false },
                 ].map((s) => (
                   <div key={s.l} className="px-4 py-4 text-center">
-                    <CountUp value={s.v} className="text-3xl font-extrabold text-accent" />
-                    <p className="mt-1 text-[10.5px] font-semibold text-mut">{s.l}</p>
+                    <CountUp
+                      value={s.v}
+                      suffix={s.suffix}
+                      className={cn("text-2xl font-extrabold sm:text-3xl", s.gold ? "text-mint" : "text-accent")}
+                    />
+                    <p className="mt-1 text-[10.5px] font-bold text-mut">{s.l}</p>
                   </div>
                 ))}
               </div>
-              <div className="px-5 py-4">
+              <div className="px-6 py-5">
                 <p className="text-[13px] leading-relaxed text-mut">
-                  “Aaj <b className="text-ink">3 bookings bachi</b>. 6 missed messages mein se 2 abhi pending. Waitlist par 2
-                  customers — cancellation hote hi slot offer ho jayega.”
+                  “Aaj <b className="text-ink">6 missed inquiries</b> ko confirmed bookings mein badla gaya (<b className="text-mint">PKR 24,500</b>).
+                  Waitlist par 2 VIP clients hain — cancellation aate hi slot automatically offer ho jayega.”
                 </p>
                 <div className="mt-4 flex flex-wrap gap-2">
-                  <span className="inline-flex items-center gap-1.5 rounded-md border border-line bg-raised px-2.5 py-1.5 text-[11px] font-bold">
-                    <Download size={12} className="text-accent" /> CSV export
+                  <span className="inline-flex items-center gap-1.5 rounded-lg border border-luxe/40 bg-luxe-soft px-3 py-1.5 text-[11px] font-extrabold text-mint">
+                    <Download size={12} /> Revenue CSV Export
                   </span>
-                  <span className="inline-flex items-center gap-1.5 rounded-md border border-line bg-raised px-2.5 py-1.5 text-[11px] font-bold">
-                    <BellRing size={12} className="text-accent" /> Reminders on
+                  <span className="inline-flex items-center gap-1.5 rounded-lg border border-line bg-raised px-3 py-1.5 text-[11px] font-bold">
+                    <BellRing size={12} className="text-accent" /> Smart Reminders Active
                   </span>
-                  <span className="inline-flex items-center gap-1.5 rounded-md border border-line bg-raised px-2.5 py-1.5 text-[11px] font-bold">
-                    <GitBranch size={12} className="text-accent" /> 2 branches
+                  <span className="inline-flex items-center gap-1.5 rounded-lg border border-line bg-raised px-3 py-1.5 text-[11px] font-bold">
+                    <GitBranch size={12} className="text-accent" /> Multi-Branch Sync
                   </span>
                 </div>
               </div>
@@ -383,239 +549,213 @@ export default function LandingPage() {
         </div>
       </section>
 
-      {/* ── Pricing ─────────────────────────────────────────────────────── */}
-      <section id="pricing" className="site-container home-section scroll-mt-24">
-        <Reveal className="text-center">
-          <span className="badge-luxe mx-auto">
-            <Crown size={12} /> Executive Salon Plans · Powered by WordbitX
-          </span>
-          <h2 className="mt-3 text-3xl font-extrabold sm:text-4xl">
-            Transparent Investment — Tailored for Luxury Salons
-          </h2>
-          <p className="mx-auto mt-2.5 max-w-2xl text-[13.5px] leading-relaxed text-mut">
-            Har salon ke scale aur workflow ke mutabiq crafted packages — baghair kisi hidden charges ke, 24 ghante mein{" "}
-            <a href="http://wordbitx.pk" target="_blank" className="font-bold text-mint underline">
-              WordbitX
-            </a>{" "}
-            team ke sath mukammal onboarding.
-          </p>
-          <div className="mt-5 inline-flex rounded-lg border border-line bg-raised p-1" role="group" aria-label="Currency">
-            {(["PKR", "USD"] as const).map((c) => (
-              <button
-                key={c}
-                type="button"
-                aria-pressed={currency === c}
-                onClick={() => setCurrency(c)}
-                className={cn(
-                  "rounded-md px-4 py-1.5 text-xs font-extrabold transition-colors",
-                  currency === c ? "bg-brand text-white shadow-xs" : "text-mut hover:text-ink",
-                )}
-              >
-                {c}
-              </button>
-            ))}
-          </div>
-        </Reveal>
-
-        <Reveal group className="mt-10 grid items-stretch gap-6 lg:grid-cols-3">
-          {PLANS.map((p) => {
-            const waText = encodeURIComponent(
-              `Assalam o Alaikum! Mujhe Elan Beauty (${p.name} Package — PKR ${p.pkr}/month) ke baray mein details aur setup chahiye.`,
-            );
-            const waHref = `https://wa.me/923251888841?text=${waText}`;
-
-            return (
-              <div
-                key={p.name}
-                className={cn(
-                  "reveal-item relative flex flex-col rounded-2xl p-7 transition-all duration-300",
-                  p.popular
-                    ? "card-luxe-featured lg:-translate-y-2"
-                    : "card-luxe-tier",
-                )}
-                <span className="text-sm font-semibold text-mut">/month</span>
-              </p>
-              <ul className="mt-5 grid flex-1 gap-2.5">
-                {p.base && (
-                  <li className="flex items-start gap-2 text-[13px] font-bold text-mint">
-                    <Check size={14} className="mt-0.5 shrink-0 text-accent" /> {p.base} +
-                  </li>
-                )}
-                {p.features.map((f) => (
-                  <li key={f} className="flex items-start gap-2 text-[13px]">
-                    <Check size={14} className="mt-0.5 shrink-0 text-accent" /> {f}
-                  </li>
-                ))}
-              </ul>
-              <RippleButton
-                href={`mailto:info@elanbeauty.pk?subject=Elan%20Beauty%20—%20${p.name}%20plan%20enquiry`}
-                variant={p.popular ? "brand" : "ghost"}
-                className="mt-6 w-full"
-              >
-                {p.popular ? (
-                  <span className="absolute -top-3.5 left-1/2 inline-flex -translate-x-1/2 items-center gap-1.5 rounded-full border border-[#e5c458] bg-gradient-to-r from-[#d4af37] to-[#b68919] px-3.5 py-1 text-[10px] font-extrabold uppercase tracking-[0.14em] text-[#091224] shadow-md">
-                    <Crown size={11} /> Most Popular · Recommended
-                  </span>
-                ) : (
-                  <span className="w-fit rounded-md border border-line bg-raised px-2.5 py-1 text-[10px] font-extrabold uppercase tracking-[0.12em] text-mint">
-                    {p.tier}
-                  </span>
-                )}
-
-                <div className={cn(p.popular ? "mt-2" : "mt-3")}>
-                  <div className="flex items-center justify-between gap-2">
-                    <h3 className={cn("text-xl font-extrabold", p.popular ? "text-white" : "text-ink")}>
-                      {p.name}
-                    </h3>
-                    {p.popular && (
-                      <span className="rounded-full border border-[#d4af37]/40 bg-[#d4af37]/15 px-2.5 py-0.5 text-[10px] font-bold text-[#f3d474]">
-                        Signature Tier
-                      </span>
-                    )}
-                  </div>
-                  <p className={cn("mt-1 text-[12px] font-medium leading-relaxed", p.popular ? "text-slate-300" : "text-mut")}>
-                    {p.tagline}
-                  </p>
-                </div>
-
-                <div className={cn("my-5 border-y py-4", p.popular ? "border-white/15" : "border-line")}>
-                  <p className={cn("text-4xl font-extrabold tracking-tight", p.popular ? "text-white" : "text-ink")}>
-                    {currency === "PKR" ? (
-                      <>
-                        <span className={cn("text-base font-bold", p.popular ? "text-[#e5c458]" : "text-mint")}>PKR </span>
-                        {p.pkr}
-                      </>
-                    ) : (
-                      <>
-                        <span className={cn("text-base font-bold", p.popular ? "text-[#e5c458]" : "text-mint")}>$</span>
-                        {p.usd}
-                      </>
-                    )}
-                    <span className={cn("text-xs font-semibold", p.popular ? "text-slate-300" : "text-mut")}> / month</span>
-                  </p>
-                </div>
-
-                <ul className="grid flex-1 gap-3">
-                  {p.base && (
-                    <li className={cn("flex items-start gap-2.5 text-[13px] font-extrabold", p.popular ? "text-[#f3d474]" : "text-mint")}>
-                      <Crown size={14} className="mt-0.5 shrink-0" /> {p.base} +
-                    </li>
+      {/* ── Pricing (Warm Champagne Pearl Band) ─────────────────────────── */}
+      <section id="pricing" className="home-section-band home-section scroll-mt-24">
+        <div className="site-container">
+          <Reveal className="text-center">
+            <span className="badge-luxe mx-auto">
+              <Crown size={12} /> Executive Salon Plans · Powered by WordbitX
+            </span>
+            <h2 className="mt-3 text-3xl font-extrabold sm:text-4xl">
+              Transparent Investment — Tailored for Luxury Salons
+            </h2>
+            <p className="mx-auto mt-2.5 max-w-2xl text-[13.5px] leading-relaxed text-mut">
+              Har salon ke scale aur workflow ke mutabiq crafted packages — baghair kisi hidden charges ke, 24 ghante mein{" "}
+              <a href="http://wordbitx.pk" target="_blank" className="font-bold text-mint underline">
+                WordbitX
+              </a>{" "}
+              team ke sath mukammal onboarding.
+            </p>
+            <div className="mt-5 inline-flex rounded-lg border border-line bg-card p-1 shadow-2xs" role="group" aria-label="Currency">
+              {(["PKR", "USD"] as const).map((c) => (
+                <button
+                  key={c}
+                  type="button"
+                  aria-pressed={currency === c}
+                  onClick={() => setCurrency(c)}
+                  className={cn(
+                    "rounded-md px-4 py-1.5 text-xs font-extrabold transition-colors",
+                    currency === c ? "bg-brand text-white shadow-xs" : "text-mut hover:text-ink",
                   )}
-                  {p.features.map((f) => (
-                    <li
-                      key={f}
-                      className={cn("flex items-start gap-2.5 text-[13px]", p.popular ? "text-slate-100" : "text-ink")}
-                    >
-                      <span
-                        className={cn(
-                          "mt-0.5 grid h-4 w-4 shrink-0 place-items-center rounded-full",
-                          p.popular ? "bg-[#d4af37]/25 text-[#f3d474]" : "bg-brand-soft text-accent",
-                        )}
-                      >
-                        <Check size={11} />
-                      </span>
-                      <span>{f}</span>
-                    </li>
-                  ))}
-                </ul>
-
-                <RippleButton
-                  href={waHref}
-                  variant={p.popular ? "luxe" : "brand"}
-                  className="mt-7 w-full"
                 >
-                  <MessageCircle size={15} />
-                  {p.popular
-                    ? "Contact on WhatsApp · +92 325 1888841"
-                    : `WhatsApp par rabta — ${p.name}`}
-                </RippleButton>
-              </div>
-            );
-          })}
-        </Reveal>
+                  {c}
+                </button>
+              ))}
+            </div>
+          </Reveal>
 
-        <Reveal className="mt-7 grid gap-4 sm:grid-cols-2">
-          <div className="card flex items-start gap-3.5 border-l-2 border-l-brand p-4 text-[13px]">
-            <Settings2 size={17} className="mt-0.5 shrink-0 text-mint" />
-            <p>
-              <b>Optional setup: PKR 5,000 / $29</b>
-              <span className="text-mut"> — services, prices aur FAQs Elan Beauty team khud enter karegi.</span>
-            </p>
-          </div>
-          <div className="card flex items-start gap-3.5 border-l-2 border-l-luxe p-4 text-[13px]">
-            <MessageCircle size={17} className="mt-0.5 shrink-0 text-mint" />
-            <p>
-              <b>Phase 1 mein checkout nahi</b>
-              <span className="text-mut"> — sale enquiry par hoti hai: </span>
-              <a href="mailto:info@elanbeauty.pk" className="font-bold text-accent hover:underline">info@elanbeauty.pk</a>
-            </p>
-          </div>
-        </Reveal>
+          <Reveal group className="mt-10 grid items-stretch gap-6 lg:grid-cols-3">
+            {PLANS.map((p) => {
+              const waText = encodeURIComponent(
+                `Assalam o Alaikum! Mujhe Elan Beauty (${p.name} Package — PKR ${p.pkr}/month) ke baray mein details aur setup chahiye.`,
+              );
+              const waHref = `https://wa.me/923251888841?text=${waText}`;
+
+              return (
+                <div
+                  key={p.name}
+                  className={cn(
+                    "reveal-item relative flex flex-col rounded-2xl p-7 transition-all duration-300",
+                    p.popular
+                      ? "card-luxe-featured lg:-translate-y-2"
+                      : "card-luxe-tier",
+                  )}
+                >
+                  {p.popular ? (
+                    <span className="absolute -top-3.5 left-1/2 inline-flex -translate-x-1/2 items-center gap-1.5 rounded-full border border-[#e5c458] bg-gradient-to-r from-[#d4af37] to-[#b68919] px-3.5 py-1 text-[10px] font-extrabold uppercase tracking-[0.14em] text-[#091224] shadow-md">
+                      <Crown size={11} /> Most Popular · Recommended
+                    </span>
+                  ) : (
+                    <span className="w-fit rounded-md border border-luxe/35 bg-luxe-soft px-2.5 py-1 text-[10px] font-extrabold uppercase tracking-[0.12em] text-mint">
+                      {p.tier}
+                    </span>
+                  )}
+
+                  <div className={cn(p.popular ? "mt-2" : "mt-3")}>
+                    <div className="flex items-center justify-between gap-2">
+                      <h3 className={cn("text-xl font-extrabold", p.popular ? "text-white" : "text-ink")}>
+                        {p.name}
+                      </h3>
+                      {p.popular && (
+                        <span className="rounded-full border border-[#d4af37]/40 bg-[#d4af37]/15 px-2.5 py-0.5 text-[10px] font-bold text-[#f3d474]">
+                          Signature Tier
+                        </span>
+                      )}
+                    </div>
+                    <p className={cn("mt-1 text-[12px] font-medium leading-relaxed", p.popular ? "text-slate-300" : "text-mut")}>
+                      {p.tagline}
+                    </p>
+                  </div>
+
+                  <div className={cn("my-5 border-y py-4", p.popular ? "border-white/15" : "border-line")}>
+                    <p className={cn("text-4xl font-extrabold tracking-tight", p.popular ? "text-white" : "text-ink")}>
+                      {currency === "PKR" ? (
+                        <>
+                          <span className={cn("text-base font-bold", p.popular ? "text-[#e5c458]" : "text-mint")}>PKR </span>
+                          {p.pkr}
+                        </>
+                      ) : (
+                        <>
+                          <span className={cn("text-base font-bold", p.popular ? "text-[#e5c458]" : "text-mint")}>$</span>
+                          {p.usd}
+                        </>
+                      )}
+                      <span className={cn("text-xs font-semibold", p.popular ? "text-slate-300" : "text-mut")}> / month</span>
+                    </p>
+                  </div>
+
+                  <ul className="grid flex-1 gap-3">
+                    {p.base && (
+                      <li className={cn("flex items-start gap-2.5 text-[13px] font-extrabold", p.popular ? "text-[#f3d474]" : "text-mint")}>
+                        <Crown size={14} className="mt-0.5 shrink-0" /> {p.base} +
+                      </li>
+                    )}
+                    {p.features.map((f) => (
+                      <li
+                        key={f}
+                        className={cn("flex items-start gap-2.5 text-[13px]", p.popular ? "text-slate-100" : "text-ink")}
+                      >
+                        <span
+                          className={cn(
+                            "mt-0.5 grid h-4 w-4 shrink-0 place-items-center rounded-full",
+                            p.popular ? "bg-[#d4af37]/25 text-[#f3d474]" : "bg-brand-soft text-accent",
+                          )}
+                        >
+                          <Check size={11} />
+                        </span>
+                        <span>{f}</span>
+                      </li>
+                    ))}
+                  </ul>
+
+                  <RippleButton
+                    href={waHref}
+                    variant={p.popular ? "luxe" : "brand"}
+                    className="mt-7 w-full"
+                  >
+                    <MessageCircle size={15} />
+                    {p.popular
+                      ? "Contact on WhatsApp · +92 325 1888841"
+                      : `WhatsApp par rabta — ${p.name}`}
+                  </RippleButton>
+                </div>
+              );
+            })}
+          </Reveal>
+
+          <Reveal className="mt-7 grid gap-4 sm:grid-cols-2">
+            <div className="card flex items-start gap-3.5 border-l-2 border-l-brand p-4 text-[13px]">
+              <Settings2 size={17} className="mt-0.5 shrink-0 text-mint" />
+              <p>
+                <b>White-Glove Setup Service: PKR 5,000 / $29</b>
+                <span className="text-mut">
+                  {" "}— Aap ke salon ki tamam services, prices aur FAQs{" "}
+                  <a href="http://wordbitx.pk" target="_blank" className="font-bold text-mint underline">
+                    WordbitX (wordbitx.pk)
+                  </a>{" "}
+                  ki team 24 ghante mein khud configure karegi.
+                </span>
+              </p>
+            </div>
+            <div className="card flex items-start gap-3.5 border-l-2 border-l-luxe p-4 text-[13px]">
+              <MessageCircle size={17} className="mt-0.5 shrink-0 text-mint" />
+              <p>
+                <b>Direct WhatsApp Onboarding:</b>
+                <span className="text-mut"> Apna package activate karne ke liye seedha WhatsApp par rabta karein: </span>
+                <a
+                  href="https://wa.me/923251888841?text=Assalam%20o%20Alaikum!%20Mujhe%20Elan%20Beauty%20Growth%20plan%20activate%20karna%20hai."
+                  target="_blank"
+                  className="font-extrabold text-mint hover:underline"
+                >
+                  +92 325 1888841
+                </a>
+              </p>
+            </div>
+          </Reveal>
+        </div>
       </section>
 
-      {/* ── Guardrails ──────────────────────────────────────────────────── */}
-      <section className="home-section-band home-section">
-        <div className="site-container grid gap-12 lg:grid-cols-[1fr_1.1fr]">
+      {/* ── Guardrails + FAQ ────────────────────────────────────────────── */}
+      <section className="site-container home-section">
+        <div className="grid gap-12 lg:grid-cols-[1fr_1.1fr]">
           <Reveal>
-            <p className="text-[11px] font-extrabold uppercase tracking-[0.16em] text-accent">Guardrails — non-negotiable</p>
-            <h2 className="mt-2 text-3xl font-extrabold">Hum kya NAHI karte</h2>
-            <p className="mt-4 max-w-md text-sm leading-relaxed text-mut">
-              Bharosa feature list se bara hai. Is liye jo hum nahi karte, woh bhi likha hai — taake aap ka brand mehfooz rahe.
+            <span className="badge-luxe">
+              <ShieldCheck size={12} /> Enterprise Guardrails
+            </span>
+            <h2 className="mt-3 text-3xl font-extrabold">Bharosa Aur Brand Safety Sab Se Pehle</h2>
+            <p className="mt-3 max-w-md text-sm leading-relaxed text-mut">
+              Luxury salons ke liye client trust sab se qeemti hai — is liye hamara system zero-spam aur strict privacy principles par kaam karta hai.
             </p>
-            <div className="card mt-6 flex items-start gap-3 border-l-2 border-l-brand p-4">
-              <ShieldCheck size={18} className="mt-0.5 shrink-0 text-accent" />
+            <div className="card-luxe-tier mt-6 flex items-start gap-3.5 rounded-2xl p-5">
+              <ShieldCheck size={20} className="mt-0.5 shrink-0 text-mint" />
               <p className="text-[13px] leading-relaxed">
-                <b>Tenant isolation:</b>{" "}
+                <b>100% Tenant Isolation:</b>{" "}
                 <span className="text-mut">
-                  Har row par salon_id + Row Level Security — Salon B ko Salon A ki aik booking bhi nazar nahi aati. Dashboard
-                  par live tests mojood hain.
+                  Har record par dedicated salon_id + Row Level Security — Salon B ko Salon A ki aik booking bhi nazar nahi aati.
                 </span>
               </p>
             </div>
           </Reveal>
           <Reveal group className="grid content-start gap-3 sm:grid-cols-2">
             {NOT_DOING.map((t) => (
-              <div key={t} className="reveal-item flex items-start gap-2.5 rounded-lg border border-line bg-page p-3.5 text-[12.5px] leading-relaxed">
-                <Ban size={14} className="mt-0.5 shrink-0 text-accent" /> {t}
+              <div key={t} className="reveal-item flex items-start gap-2.5 rounded-xl border border-line bg-raised/70 p-4 text-[12.5px] leading-relaxed">
+                <Ban size={14} className="mt-0.5 shrink-0 text-mint" /> {t}
               </div>
             ))}
           </Reveal>
         </div>
-      </section>
 
-      {/* ── Phases + FAQ ────────────────────────────────────────────────── */}
-      <section className="site-container home-section">
-        <Reveal group className="grid gap-5 md:grid-cols-2">
-          <div className="reveal-item card border-l-2 border-l-brand p-6">
-            <p className="text-[11px] font-extrabold uppercase tracking-wider text-accent">Phase 1 — abhi (yeh demo)</p>
-            <h3 className="mt-2 text-xl font-extrabold">Sellable demo</h3>
-            <ul className="mt-4 grid gap-2 text-[13px] text-mut">
-              <li>• Simulated demo chat + owner dashboard</li>
-              <li>• Editable salon settings — live asar</li>
-              <li>• Pricing + brand strip</li>
-              <li>• Har jagah  label — koi 'live' ka jhoota dawa nahi</li>
-            </ul>
+        <Reveal className="mt-16">
+          <div className="text-center">
+            <span className="badge-luxe mx-auto">Frequently Asked Questions</span>
+            <h2 className="mt-2.5 text-3xl font-extrabold">Aam Sawalat Ke Jawab</h2>
           </div>
-          <div className="reveal-item card p-6">
-            <p className="text-[11px] font-extrabold uppercase tracking-wider text-mut">Phase 2 — structure ab, connection baad mein</p>
-            <h3 className="mt-2 text-xl font-extrabold">Live WhatsApp Cloud API</h3>
-            <ul className="mt-4 grid gap-2 text-[13px] text-mut">
-              <li>• Meta Business verification + approved templates ke baad hi</li>
-              <li>• Webhook stub + send-message structure abhi se mojood</li>
-              <li>• Instagram DM coverage</li>
-              <li>• Clinics — sirf 5 paying salons ke baad</li>
-            </ul>
-          </div>
-        </Reveal>
-
-        <Reveal className="mt-14">
-          <h2 className="text-center text-3xl font-extrabold">Aam sawal</h2>
-          <div className="home-faq mx-auto mt-7 grid max-w-3xl gap-3">
+          <div className="home-faq mx-auto mt-8 grid max-w-3xl gap-3.5">
             {FAQS.map((f) => (
               <details key={f.q} className="card group px-5 py-4">
-                <summary className="flex cursor-pointer list-none items-center justify-between gap-3 text-[14px] font-bold [&::-webkit-details-marker]:hidden">
+                <summary className="flex cursor-pointer list-none items-center justify-between gap-3 text-[14px] font-extrabold [&::-webkit-details-marker]:hidden">
                   {f.q}
-                  <Plus size={16} className="shrink-0 text-accent transition-transform group-open:rotate-45" />
+                  <Plus size={16} className="shrink-0 text-mint transition-transform group-open:rotate-45" />
                 </summary>
                 <p className="mt-3 text-[13px] leading-relaxed text-mut">{f.a}</p>
               </details>
@@ -624,32 +764,52 @@ export default function LandingPage() {
         </Reveal>
       </section>
 
-      {/* ── Final CTA ───────────────────────────────────────────────────── */}
+      {/* ── Final Luxury Executive CTA Banner ───────────────────────────── */}
       <section className="home-final-cta">
-        <div className="site-container flex flex-col items-center gap-6 text-center">
-          <Reveal>
-            <h2 className="mx-auto max-w-2xl text-3xl font-extrabold sm:text-4xl">
-              Apne salon ka leak <span className="text-accent">khud dekhein</span> — demo mein.
+        <div className="site-container">
+          <Reveal className="home-final-luxe-box flex flex-col items-center text-center">
+            <span className="inline-flex items-center gap-1.5 rounded-full border border-[#e5c158]/45 bg-[#e5c158]/15 px-3.5 py-1 text-[10px] font-extrabold uppercase tracking-[0.15em] text-[#f3d474]">
+              <Crown size={12} /> Elan Beauty Suite · Powered by WordbitX
+            </span>
+            <h2 className="mx-auto mt-4 max-w-2xl font-extrabold">
+              Apne Salon Ki Har Missed Call Ko <span className="text-[#f3d474]">Confirmed Booking</span> Mein Badlein
             </h2>
-            <p className="mx-auto mt-3 max-w-md text-sm text-mut">
-              Pehla buyer sirf Lahore ke salons hain. Demo ka kaam proof dena hai — guarantee nahi.
+            <p className="mx-auto mt-3 max-w-lg text-[13.5px] leading-relaxed text-slate-300">
+              Abhi live interactive demo check karein ya{" "}
+              <a href="http://wordbitx.pk" target="_blank" className="font-bold text-[#f3d474] underline">
+                WordbitX (wordbitx.pk)
+              </a>{" "}
+              team ke sath WhatsApp par 24-hour setup shuru karein.
             </p>
-            <div className="mt-7 flex flex-wrap justify-center gap-3">
-              <RippleButton href="/demo">
-                <Play size={15} /> Abhi demo chalayein
+            <div className="mt-7 flex flex-wrap justify-center gap-3.5">
+              <RippleButton href="/demo" variant="luxe">
+                <Play size={15} fill="currentColor" /> Live Demo Chalayein
               </RippleButton>
-              <RippleButton href="mailto:info@elanbeauty.pk?subject=Elan%20Beauty%20enquiry" variant="ghost">
-                <Mail size={15} /> info@elanbeauty.pk
+              <RippleButton
+                href="https://wa.me/923251888841?text=Assalam%20o%20Alaikum!%20Mujhe%20Elan%20Beauty%20by%20WordbitX%20ke%20baray%20mein%20details%20chahiye."
+                variant="brand"
+                className="!border-[#e5c158]/50 !bg-white/10 hover:!bg-white/18"
+              >
+                <MessageCircle size={15} className="text-[#f3d474]" /> WhatsApp · +92 325 1888841
+              </RippleButton>
+              <RippleButton
+                href="http://wordbitx.pk"
+                variant="ghost"
+                className="!border-white/20 !text-white hover:!bg-white/10"
+              >
+                WordbitX Official (wordbitx.pk) <ArrowRight size={14} />
               </RippleButton>
             </div>
-            <div className="mt-6 flex flex-wrap justify-center gap-x-6 gap-y-2 text-[12px] font-semibold text-mut">
-              <a href="https://wa.me/923251888841" target="_blank" className="inline-flex items-center gap-1.5 hover:text-mint">
-                <Phone size={12} className="text-mint" /> WhatsApp +92 325 1888841
+            <div className="mt-6 flex flex-wrap justify-center gap-x-6 gap-y-2 text-[12px] font-semibold text-slate-300">
+              <a href="https://wa.me/923251888841" target="_blank" className="inline-flex items-center gap-1.5 hover:text-[#f3d474]">
+                <Phone size={12} className="text-[#f3d474]" /> WhatsApp +92 325 1888841
               </a>
-              <a href="http://wordbitx.pk" target="_blank" className="inline-flex items-center gap-1.5 font-bold text-mint hover:underline">
-                Powered by WordbitX (wordbitx.pk)
+              <a href="http://wordbitx.pk" target="_blank" className="inline-flex items-center gap-1.5 font-bold text-[#f3d474] hover:underline">
+                Engineered by WordbitX (wordbitx.pk)
               </a>
-              <span className="inline-flex items-center gap-1.5"><Clock size={12} className="text-mint" /> Setup: 24 ghante</span>
+              <span className="inline-flex items-center gap-1.5">
+                <Clock size={12} className="text-[#f3d474]" /> 24-Hour White-Glove Setup
+              </span>
             </div>
           </Reveal>
         </div>
